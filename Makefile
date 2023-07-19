@@ -1,9 +1,11 @@
 
-CC=gcc
-CFLAGS=-Wall -Wextra -m32 -fPIC
+# Need to use g++ because the sdk headers use classes
+CC=g++
+INCLUDES=-Isrc/sdk/common -Isrc/sdk/public -Isrc/sdk/pm_shared -Isrc/sdk/engine
+CFLAGS=-Wall -Wextra -Wno-write-strings -m32 -fPIC $(INCLUDES)
 LDFLAGS=
 
-OBJS=obj/main.c.o
+OBJS=obj/main.c.o obj/globals.c.o
 BIN=libhlcheat.so
 
 .PHONY: clean all inject
@@ -16,7 +18,7 @@ clean:
 	rm -f $(OBJS)
 	rm -f $(BIN)
 
-inject:
+inject: $(BIN)
 	bash ./inject.sh
 
 # -------------------------------------------
