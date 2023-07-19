@@ -9,6 +9,7 @@
 #include "../sdk/cl_dll/wrect.h"
 #include "../sdk/cl_dll/cl_dll.h"
 
+/*
 #include "../sdk/common/event_api.h"
 #include "../sdk/pm_shared/pm_defs.h"
 #include "../sdk/common/cvardef.h"
@@ -21,6 +22,7 @@
 #include "../sdk/common/screenfade.h"
 #include "../sdk/common/net_api.h"
 #include "../sdk/common/parsemsg.h"
+*/
 
 typedef struct cl_clientfuncs_s {
     int (*Initialize)(cl_enginefunc_t* pEnginefuncs, int iVersion);
