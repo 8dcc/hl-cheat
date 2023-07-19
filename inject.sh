@@ -15,6 +15,4 @@ sudo gdb -n -q -batch                                   \
 
 #   -ex "set \$dlclose = (int (*)(void*))dlclose"       \
 
-if [ $? -eq 0 ]; then
-    echo -e "\nhl-cheat loaded!"
-fi
+echo -e "\nDone."
