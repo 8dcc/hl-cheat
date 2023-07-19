@@ -1,0 +1,40 @@
+#+title: Half-Life cheat
+#+options: toc:nil
+#+startup: showeverything
+#+author: 8dcc
+
+*Linux cheat for Half-Life 1 (goldsrc).*
+
+#+TOC: headlines 2
+
+* Description
+#+begin_quote
+*Note*
+This project is still work in progress.
+#+end_quote
+
+Simple Half-Life 1 cheat for linux made in C.
+
+This project was heavily inspired by [[https://github.com/UnkwUsr/hlhax][UnkwUsr/hlhax]], and would not have been
+possible without his help. Make sure to check out his repo too.
+
+* Building
+
+#+begin_src console
+$ git clone https://github.com/8dcc/hl-cheat
+$ cd hl-cheat
+$ make
+...
+#+end_src
+
+* Injecting
+Uses the [[https://www.gnu.org/savannah-checkouts/gnu/gdb/index.html][=gdb=]] debugger for injecting the library.
+
+#+begin_src console
+$ ./injector.sh
+[sudo] password for username:
+
+...
+
+hl-cheat loaded!
+#+end_src
