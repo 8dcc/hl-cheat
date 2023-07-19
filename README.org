@@ -9,8 +9,7 @@
 
 * Description
 #+begin_quote
-*Note*
-This project is still work in progress.
+*Note:* This project is still work in progress.
 #+end_quote
 
 Simple Half-Life 1 cheat for linux made in C.
@@ -28,7 +27,7 @@ $ make
 #+end_src
 
 * Injecting
-Uses the [[https://www.gnu.org/savannah-checkouts/gnu/gdb/index.html][=gdb=]] debugger for injecting the library.
+Uses the [[https://www.gnu.org/savannah-checkouts/gnu/gdb/index.html][gdb]] debugger for injecting the library.
 
 #+begin_src console
 $ ./injector.sh
