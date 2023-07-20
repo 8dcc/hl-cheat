@@ -6,24 +6,27 @@
 /*----------------------------------------------------------------------------*/
 
 /*
+ * Macro for declaring interfaces and it's originals.
+ * Also extern version for the header.
+ *
  * prefix | meaning
  * -------+----------------
  * gp_*   | global pointer
  * go_*   | global original
  */
-#define DECLARE_SYMBOLS(type, name) \
-    type* gp_##name = NULL;         \
+#define DECL_INTF(type, name) \
+    type* gp_##name = NULL;   \
     type go_##name;
 
-#define DECLARE_EXTERNS(type, name) \
-    extern type* gp_##name;         \
+#define DECL_INTF_EXTERN(type, name) \
+    extern type* gp_##name;          \
     extern type go_##name;
 
 /*----------------------------------------------------------------------------*/
 
 extern void* hw;
-DECLARE_EXTERNS(cl_enginefunc_t, engine);
-DECLARE_EXTERNS(cl_clientfunc_t, client);
+DECL_INTF_EXTERN(cl_enginefunc_t, engine);
+DECL_INTF_EXTERN(cl_clientfunc_t, client);
 
 /*----------------------------------------------------------------------------*/
 

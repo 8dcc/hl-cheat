@@ -6,8 +6,8 @@
 #include "include/sdk.h"
 
 void* hw;
-DECLARE_SYMBOLS(cl_enginefunc_t, engine);
-DECLARE_SYMBOLS(cl_clientfunc_t, client);
+DECL_INTF(cl_enginefunc_t, engine);
+DECL_INTF(cl_clientfunc_t, client);
 
 bool globals_init(void) {
     /*
