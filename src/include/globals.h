@@ -6,8 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 /*
- * Macro for declaring interfaces and it's originals.
- * Also extern version for the header.
+ * DECL_INTF: Macro for declaring interfaces and it's originals.
+ * DECL_INTF_EXTERN: Extern version for the header.
  *
  * prefix | meaning
  * -------+----------------
