@@ -3,8 +3,9 @@
 #include <dlfcn.h>
 
 #include "include/main.h"
-#include "include/globals.h"
 #include "include/sdk.h"
+#include "include/globals.h"
+#include "include/hooks.h"
 
 /*
  * We need:
@@ -12,19 +13,23 @@
  * To indicate that this function will be the entry point once injected.
  */
 __attribute__((constructor)) void load(void) {
-    printf("hl-cheat loaded!\n");
+    printf("hl-cheat injected!\n");
 
+    /* Initialize globals/interfaces */
     if (!globals_init()) {
-        printf("hl-cheats: load: error loading globals, aborting\n");
+        fprintf(stderr, "hl-cheat: load: error loading globals, aborting\n");
         self_unload();
         return;
     }
 
-    printf("gp_engine: %p\n"
-           "gp_client: %p\n",
-           gp_engine, gp_client);
+    /* Hook functions */
+    if (!hooks_init()) {
+        fprintf(stderr, "hl-cheat: load: error hooking functions, aborting\n");
+        self_unload();
+        return;
+    }
 
-    gp_engine->pfnClientCmd("echo \"Hello from the game's console!\"");
+    gp_engine->pfnClientCmd("echo \"hl-cheat loaded successfully!\"");
 }
 
 void self_unload(void) {
