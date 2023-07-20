@@ -19,7 +19,7 @@ bool globals_init(void) {
 
     /* Make sure it's a valid handler */
     if (!hw) {
-        printf("hl-cheats: globals_init: can't open hw.so\n");
+        printf("hl-cheat: globals_init: can't open hw.so\n");
         return false;
     }
 
