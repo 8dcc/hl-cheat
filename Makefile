@@ -5,7 +5,7 @@ INCLUDES=-Isrc/sdk/common -Isrc/sdk/public -Isrc/sdk/pm_shared -Isrc/sdk/engine
 CFLAGS=-Wall -Wextra -Wno-write-strings -m32 -fPIC $(INCLUDES)
 LDFLAGS=
 
-OBJS=obj/main.c.o obj/globals.c.o
+OBJS=obj/main.c.o obj/globals.c.o obj/hooks.c.o
 BIN=libhlcheat.so
 
 .PHONY: clean all inject
