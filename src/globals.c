@@ -10,6 +10,9 @@ DECL_INTF(cl_enginefunc_t, engine);
 DECL_INTF(cl_clientfunc_t, client);
 DECL_INTF(playermove_t, pmove);
 
+/* Updated in CL_CreateMove hook */
+cl_entity_t* localplayer = NULL;
+
 bool globals_init(void) {
     /*
      * Get handler for hw.so

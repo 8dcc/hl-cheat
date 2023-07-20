@@ -29,6 +29,8 @@ DECL_INTF_EXTERN(cl_enginefunc_t, engine);
 DECL_INTF_EXTERN(cl_clientfunc_t, client);
 DECL_INTF_EXTERN(playermove_t, pmove);
 
+extern cl_entity_t* localplayer;
+
 /*----------------------------------------------------------------------------*/
 
 bool globals_init(void);
