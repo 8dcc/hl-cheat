@@ -6,13 +6,13 @@
 DECL_HOOK(CL_CreateMove);
 
 bool hooks_init(void) {
-    HOOK(gp_client, CL_CreateMove);
+    HOOK(i_client, CL_CreateMove);
 
     return true;
 }
 
 void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
-    /* printf("Hello from CL_CreateMove!\n"); */
+    /* bhop(cmd); */
 
     ORIGINAL(CL_CreateMove, frametime, cmd, active);
 }

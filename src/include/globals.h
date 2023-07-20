@@ -10,17 +10,17 @@
  * DECL_INTF_EXTERN: Extern version for the header.
  *
  * prefix | meaning
- * -------+----------------
- * gp_*   | global pointer
- * go_*   | global original
+ * -------+-------------------------------
+ * i_*    | interface ptr (global scope)
+ * o_*    | original interface (not a ptr)
  */
 #define DECL_INTF(type, name) \
-    type* gp_##name = NULL;   \
-    type go_##name;
+    type* i_##name = NULL;    \
+    type o_##name;
 
 #define DECL_INTF_EXTERN(type, name) \
-    extern type* gp_##name;          \
-    extern type go_##name;
+    extern type* i_##name;           \
+    extern type o_##name;
 
 /*----------------------------------------------------------------------------*/
 

@@ -24,8 +24,8 @@ bool globals_init(void) {
     }
 
     /* Get symbol addresses using dlsym and the handler we just opened */
-    gp_engine = (cl_enginefunc_t*)dlsym(hw, "cl_enginefuncs");
-    gp_client = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
+    i_engine = (cl_enginefunc_t*)dlsym(hw, "cl_enginefuncs");
+    i_client = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
 
     return true;
 }

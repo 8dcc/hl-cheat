@@ -29,7 +29,7 @@ __attribute__((constructor)) void load(void) {
         return;
     }
 
-    gp_engine->pfnClientCmd("echo \"hl-cheat loaded successfully!\"");
+    i_engine->pfnClientCmd("echo \"hl-cheat loaded successfully!\"");
 }
 
 void self_unload(void) {
