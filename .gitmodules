@@ -1,0 +1,3 @@
+[submodule "src/include/sdk"]
+	path = src/include/sdk
+	url = https://github.com/ValveSoftware/halflife.git
