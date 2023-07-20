@@ -3,7 +3,7 @@
 #+startup: showeverything
 #+author: 8dcc
 
-*Linux cheat for Half-Life 1 (goldsrc).*
+*Linux cheat for Half-Life 1 (and goldsrc).*
 
 #+TOC: headlines 2
 
@@ -12,10 +12,12 @@
 *Note:* This project is still work in progress.
 #+end_quote
 
-Simple Half-Life 1 cheat for linux made in C.
+Simple linux cheat for Half-Life 1 (and most /goldsrc/ games) made in C.
 
 This project was heavily inspired by [[https://github.com/UnkwUsr/hlhax][UnkwUsr/hlhax]], and would not have been
 possible without his help. Make sure to check out his repo too.
+
+Also make sure to check out [[https://github.com/deboogerxyz/ahc][deboogerxyz/ahc]].
 
 * Building
 
