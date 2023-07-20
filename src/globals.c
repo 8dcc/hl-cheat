@@ -8,6 +8,7 @@
 void* hw;
 DECL_INTF(cl_enginefunc_t, engine);
 DECL_INTF(cl_clientfunc_t, client);
+DECL_INTF(playermove_t, pmove);
 
 bool globals_init(void) {
     /*
@@ -26,6 +27,7 @@ bool globals_init(void) {
     /* Get symbol addresses using dlsym and the handler we just opened */
     i_engine = (cl_enginefunc_t*)dlsym(hw, "cl_enginefuncs");
     i_client = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
+    i_pmove  = *(playermove_t**)dlsym(hw, "pmove");
 
     return true;
 }
