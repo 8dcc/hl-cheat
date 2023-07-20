@@ -29,5 +29,10 @@ bool globals_init(void) {
     i_client = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
     i_pmove  = *(playermove_t**)dlsym(hw, "pmove");
 
+    if (!i_engine || !i_client || !i_pmove) {
+        printf("hl-cheat: globals_init: could't load some symbols.\n");
+        return false;
+    }
+
     return true;
 }
