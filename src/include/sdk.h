@@ -6,11 +6,11 @@
  *   sdk/cl_dll/cl_dll.h:40 -> sdk/engine/cdll_int.h:164 ---+
  *   sdk/engine/APIProxy.h:358-494    <---------------------+
  */
-#include "../sdk/cl_dll/wrect.h"
-#include "../sdk/cl_dll/cl_dll.h"
+#include "sdk/cl_dll/wrect.h"
+#include "sdk/cl_dll/cl_dll.h"
 
 /* usercmd_t */
-#include "../sdk/common/usercmd.h"
+#include "sdk/common/usercmd.h"
 
 /*
 #include "../sdk/common/event_api.h"

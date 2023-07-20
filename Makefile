@@ -1,7 +1,7 @@
 
 # Need to use g++ because the sdk headers use classes
 CC=g++
-INCLUDES=-Isrc/sdk/common -Isrc/sdk/public -Isrc/sdk/pm_shared -Isrc/sdk/engine
+INCLUDES=-Isrc/include/sdk/common -Isrc/include/sdk/public -Isrc/include/sdk/pm_shared -Isrc/include/sdk/engine
 CFLAGS=-Wall -Wextra -Wno-write-strings -m32 -fPIC $(INCLUDES)
 LDFLAGS=
 
