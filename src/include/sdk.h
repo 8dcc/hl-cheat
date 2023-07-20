@@ -12,19 +12,21 @@
 /* usercmd_t */
 #include "sdk/common/usercmd.h"
 
+/* playermove_t */
+#include "sdk/pm_shared/pm_defs.h"
+
 /*
-#include "../sdk/common/event_api.h"
-#include "../sdk/pm_shared/pm_defs.h"
-#include "../sdk/common/cvardef.h"
-#include "../sdk/common/mathlib.h"
-#include "../sdk/common/r_studioint.h"
-#include "../sdk/cl_dll/global_consts.h"
-#include "../sdk/common/com_model.h"
-#include "../sdk/engine/studio.h"
-#include "../sdk/common/triangleapi.h"
-#include "../sdk/common/screenfade.h"
-#include "../sdk/common/net_api.h"
-#include "../sdk/common/parsemsg.h"
+#include "sdk/common/event_api.h"
+#include "sdk/common/cvardef.h"
+#include "sdk/common/mathlib.h"
+#include "sdk/common/r_studioint.h"
+#include "sdk/cl_dll/global_consts.h"
+#include "sdk/common/com_model.h"
+#include "sdk/engine/studio.h"
+#include "sdk/common/triangleapi.h"
+#include "sdk/common/screenfade.h"
+#include "sdk/common/net_api.h"
+#include "sdk/common/parsemsg.h"
 */
 
 typedef struct cl_clientfuncs_s {
