@@ -12,6 +12,7 @@ void bhop(usercmd_t* cmd) {
 
     static bool was_in_air = false;
 
+    /* 2 frames in air, release jump */
     if (was_in_air && !(i_pmove->flags & FL_ONGROUND))
         cmd->buttons &= ~IN_JUMP;
 
