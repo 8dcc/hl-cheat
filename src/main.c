@@ -5,6 +5,7 @@
 #include "include/main.h"
 #include "include/sdk.h"
 #include "include/globals.h"
+#include "include/cvars.h"
 #include "include/hooks.h"
 
 static bool loaded = false;
@@ -20,6 +21,13 @@ __attribute__((constructor)) void load(void) {
     /* Initialize globals/interfaces */
     if (!globals_init()) {
         fprintf(stderr, "hl-cheat: load: error loading globals, aborting\n");
+        self_unload();
+        return;
+    }
+
+    /* Create cvars for settings */
+    if (!cvars_init()) {
+        fprintf(stderr, "hl-cheat: load: error creating cvars, aborting\n");
         self_unload();
         return;
     }
