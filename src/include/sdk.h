@@ -15,9 +15,11 @@
 /* playermove_t */
 #include "sdk/pm_shared/pm_defs.h"
 
+/* cvar_t */
+#include "sdk/common/cvardef.h"
+
 /*
 #include "sdk/common/event_api.h"
-#include "sdk/common/cvardef.h"
 #include "sdk/common/mathlib.h"
 #include "sdk/common/r_studioint.h"
 #include "sdk/cl_dll/global_consts.h"
