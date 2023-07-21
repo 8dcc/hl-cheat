@@ -61,5 +61,6 @@
 
 bool hooks_init(void);
 DECL_HOOK_EXTERN(void, CL_CreateMove, float, usercmd_t*, int);
+DECL_HOOK_EXTERN(int, HUD_Redraw, float, int);
 
 #endif /* _HOOKS_H */
