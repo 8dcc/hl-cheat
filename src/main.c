@@ -7,6 +7,8 @@
 #include "include/globals.h"
 #include "include/hooks.h"
 
+static bool loaded = false;
+
 /*
  * We need:
  *   __attribute__((constructor))
@@ -30,6 +32,15 @@ __attribute__((constructor)) void load(void) {
     }
 
     i_engine->pfnClientCmd("echo \"hl-cheat loaded successfully!\"");
+
+    loaded = true;
+}
+
+__attribute__((destructor)) void unload() {
+    if (loaded)
+        globals_restore();
+
+    printf("hl-cheat unloaded.\n\n");
 }
 
 void self_unload(void) {
