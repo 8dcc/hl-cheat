@@ -6,7 +6,7 @@
 #include "globals.h"
 
 #define CVAR_PREFIX  "cv_"
-#define CVAR_HACK_ID 0x2000 /* (1<<13) */
+#define CVAR_HACK_ID 0x4000 /* (1<<14) One that is not in use by the game */
 
 /*
  *  DECL_CVAR: Declares cvar variable in source file.
