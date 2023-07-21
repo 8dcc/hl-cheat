@@ -45,8 +45,11 @@ __attribute__((constructor)) void load(void) {
 }
 
 __attribute__((destructor)) void unload() {
-    if (loaded)
+    if (loaded) {
+        /* TODO: Remove our cvars */
+
         globals_restore();
+    }
 
     printf("hl-cheat unloaded.\n\n");
 }
