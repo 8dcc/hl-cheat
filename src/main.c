@@ -10,12 +10,8 @@
 
 static bool loaded = false;
 
-/*
- * We need:
- *   __attribute__((constructor))
- * To indicate that this function will be the entry point once injected.
- */
-__attribute__((constructor)) void load(void) {
+__attribute__((constructor)) /* Entry point when injected */
+void load(void) {
     printf("hl-cheat injected!\n");
 
     /* Initialize globals/interfaces */
@@ -44,7 +40,8 @@ __attribute__((constructor)) void load(void) {
     loaded = true;
 }
 
-__attribute__((destructor)) void unload() {
+__attribute__((destructor)) /* Entry point when unloaded */
+void unload() {
     if (loaded) {
         /* TODO: Remove our cvars */
 
