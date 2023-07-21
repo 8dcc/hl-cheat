@@ -6,6 +6,24 @@ libpath=$(realpath "libhlcheat.so")
 # Used to echo the command. For debugging.
 #set -x
 
+if [ "$1" == "unload" ]; then
+    sudo gdb -n -q -batch                                   \
+         -ex "attach $pid"                                  \
+         -ex "set \$dlopen = (void* (*)(char*, int))dlopen" \
+         -ex "set \$dlclose = (int (*)(void*))dlclose"      \
+         -ex "set \$dlerror =  (char* (*)(void))dlerror"    \
+                                                            \
+         -ex "set \$self = \$dlopen(\"$libpath\", 6)"       \
+         -ex "call \$dlclose(\$self)"                       \
+         -ex "call \$dlclose(\$self)"                       \
+                                                            \
+         -ex "call \$dlerror()"                             \
+         -ex "detach"                                       \
+         -ex "quit"
+
+    exit 0;
+fi
+
 if grep -q "$libpath" "/proc/$pid/maps"; then
     echo -e "hl-cheat already loaded. Reloading...\n";
 
@@ -18,9 +36,9 @@ if grep -q "$libpath" "/proc/$pid/maps"; then
          -ex "set \$dlclose = (int (*)(void*))dlclose"      \
          -ex "set \$dlerror =  (char* (*)(void))dlerror"    \
                                                             \
-         -ex "set \$self = \$dlopen(\"$libpath\", 6)"        \
-         -ex "call \$dlclose(\$self)"                         \
-         -ex "call \$dlclose(\$self)"                         \
+         -ex "set \$self = \$dlopen(\"$libpath\", 6)"       \
+         -ex "call \$dlclose(\$self)"                       \
+         -ex "call \$dlclose(\$self)"                       \
                                                             \
          -ex "call \$dlopen(\"$libpath\", 2)"               \
          -ex "call \$dlerror()"                             \
