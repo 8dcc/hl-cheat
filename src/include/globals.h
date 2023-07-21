@@ -34,5 +34,7 @@ extern cl_entity_t* localplayer;
 /*----------------------------------------------------------------------------*/
 
 bool globals_init(void);
+void globals_store(void);
+void globals_restore(void);
 
 #endif /* _GLOBALS_H */

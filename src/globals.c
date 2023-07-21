@@ -37,5 +37,19 @@ bool globals_init(void) {
         return false;
     }
 
+    globals_store();
+
     return true;
+}
+
+void globals_store(void) {
+    o_engine = *i_engine;
+    o_client = *i_client;
+    o_pmove  = *i_pmove;
+}
+
+void globals_restore(void) {
+    *i_engine = o_engine;
+    *i_client = o_client;
+    *i_pmove  = o_pmove;
 }
