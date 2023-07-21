@@ -4,10 +4,10 @@
 #include "include/movement.h"
 #include "../include/sdk.h"
 #include "../include/globals.h"
+#include "../include/cvars.h"
 
 void bhop(usercmd_t* cmd) {
-    /* TODO: Check !bhop_var */
-    if (false || i_pmove->movetype != MOVETYPE_WALK)
+    if (!CVAR_ON(bhop) || i_pmove->movetype != MOVETYPE_WALK)
         return;
 
     static bool was_in_air = false;
