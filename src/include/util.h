@@ -12,6 +12,7 @@ typedef float vec2_t[2];
 bool is_alive(cl_entity_t* ent);
 bool valid_client(cl_entity_t* ent);
 char* get_name(int ent_idx);
+vec3_t vec3(float x, float y, float z);
 bool vec_is_zero(vec3_t v);
 bool world_to_screen(vec3_t vec, vec2_t screen);
 

@@ -18,6 +18,16 @@ char* get_name(int ent_idx) {
     return info.name;
 }
 
+vec3_t vec3(float x, float y, float z) {
+    vec3_t ret;
+
+    ret[0] = x;
+    ret[1] = y;
+    ret[2] = z;
+
+    return ret;
+}
+
 bool vec_is_zero(vec3_t v) {
     return v[0] == 0.0f && v[1] == 0.0f && v[2] == 0.0f;
 }
