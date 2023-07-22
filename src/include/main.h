@@ -1,8 +1,8 @@
 
-#ifndef _MAIN_H
-#define _MAIN_H
+#ifndef MAIN_H_
+#define MAIN_H_
 
 void load(void);
 void self_unload(void);
 
-#endif /* _MAIN_H */
+#endif /* MAIN_H_ */

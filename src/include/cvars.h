@@ -1,6 +1,6 @@
 
-#ifndef _CVARS_H
-#define _CVARS_H
+#ifndef CVARS_H_
+#define CVARS_H_
 
 #include "sdk.h"
 #include "globals.h"
@@ -36,4 +36,4 @@ DECL_CVAR_EXTERN(esp);
 
 bool cvars_init(void);
 
-#endif /* _CVARS_H */
+#endif /* CVARS_H_ */

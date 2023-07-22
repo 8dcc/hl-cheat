@@ -1,5 +1,5 @@
-#ifndef _SDK_H
-#define _SDK_H
+#ifndef SDK_H_
+#define SDK_H_
 
 /*
  * cl_enginefunc_t:
@@ -22,17 +22,9 @@
 #include "sdk/common/triangleapi.h"
 
 /*
-#include "sdk/common/event_api.h"
-#include "sdk/common/mathlib.h"
-#include "sdk/common/r_studioint.h"
-#include "sdk/cl_dll/global_consts.h"
-#include "sdk/common/com_model.h"
-#include "sdk/engine/studio.h"
-#include "sdk/common/screenfade.h"
-#include "sdk/common/net_api.h"
-#include "sdk/common/parsemsg.h"
-*/
-
+ * Credits:
+ *   https://github.com/UnkwUsr/hlhax/blob/26491984996c8389efec977ed940c5a67a0ecca4/src/sdk.h#L45
+ */
 typedef struct cl_clientfuncs_s {
     int (*Initialize)(cl_enginefunc_t* pEnginefuncs, int iVersion);
     void (*HUD_Init)(void);
@@ -109,4 +101,4 @@ typedef struct cl_clientfuncs_s {
     void (*CLIENTFACTORY)(void);
 } cl_clientfunc_t;
 
-#endif /* _SDK_H */
+#endif /* SDK_H_ */

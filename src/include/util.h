@@ -1,5 +1,5 @@
-#ifndef _UTIL_H
-#define _UTIL_H
+#ifndef UTIL_H_
+#define UTIL_H_
 
 #include "sdk.h"
 #include "globals.h"
@@ -15,4 +15,4 @@ char* get_name(int ent_idx);
 bool vec_is_zero(vec3_t v);
 bool world_to_screen(vec3_t vec, vec2_t screen);
 
-#endif /* _UTIL_H */
+#endif /* UTIL_H_ */

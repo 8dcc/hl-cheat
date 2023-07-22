@@ -1,5 +1,6 @@
-#ifndef _GLOBALS_H
-#define _GLOBALS_H
+
+#ifndef GLOBALS_H_
+#define GLOBALS_H_
 
 #include "sdk.h"
 
@@ -37,4 +38,4 @@ bool globals_init(void);
 void globals_store(void);
 void globals_restore(void);
 
-#endif /* _GLOBALS_H */
+#endif /* GLOBALS_H_ */

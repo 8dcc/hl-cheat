@@ -1,5 +1,6 @@
-#ifndef _FEATURES_H
-#define _FEATURES_H
+
+#ifndef FEATURES_H_
+#define FEATURES_H_
 
 #include "../include/sdk.h"
 
@@ -9,4 +10,4 @@ void bhop(usercmd_t* cmd);
 /* src/features/esp.c */
 void esp(void);
 
-#endif /* _FEATURES_H */
+#endif /* FEATURES_H_ */
