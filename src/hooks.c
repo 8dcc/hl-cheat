@@ -4,6 +4,7 @@
 #include "include/globals.h"
 
 #include "features/include/movement.h"
+#include "features/include/esp.h"
 
 DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
@@ -30,6 +31,15 @@ int h_HUD_Redraw(float time, int intermission) {
     /* Watermark */
     i_engine->pfnDrawSetTextColor(1, 1, 1);
     i_engine->pfnDrawConsoleString(5, 5, "8dcc/hl-cheat");
+
+    char pos[100];
+    sprintf(pos, "x: %f, y: %f, z: %f", localplayer->origin[0],
+            localplayer->origin[1], localplayer->origin[2]);
+
+    i_engine->pfnDrawSetTextColor(1, 1, 1);
+    i_engine->pfnDrawConsoleString(5, 20, pos);
+
+    esp();
 
     return ret;
 }
