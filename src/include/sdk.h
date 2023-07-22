@@ -18,6 +18,9 @@
 /* cvar_t */
 #include "sdk/common/cvardef.h"
 
+/* triangleapi_s */
+#include "sdk/common/triangleapi.h"
+
 /*
 #include "sdk/common/event_api.h"
 #include "sdk/common/mathlib.h"
@@ -25,7 +28,6 @@
 #include "sdk/cl_dll/global_consts.h"
 #include "sdk/common/com_model.h"
 #include "sdk/engine/studio.h"
-#include "sdk/common/triangleapi.h"
 #include "sdk/common/screenfade.h"
 #include "sdk/common/net_api.h"
 #include "sdk/common/parsemsg.h"
