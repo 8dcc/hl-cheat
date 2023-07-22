@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <string.h>
 #include <dlfcn.h>
 
 #include "include/globals.h"
@@ -43,13 +44,11 @@ bool globals_init(void) {
 }
 
 void globals_store(void) {
-    o_engine = *i_engine;
-    o_client = *i_client;
-    o_pmove  = *i_pmove;
+    memcpy(&o_engine, i_engine, sizeof(cl_enginefunc_t));
+    memcpy(&o_client, i_client, sizeof(cl_clientfunc_t));
 }
 
 void globals_restore(void) {
-    *i_engine = o_engine;
-    *i_client = o_client;
-    *i_pmove  = o_pmove;
+    memcpy(i_engine, &o_engine, sizeof(cl_enginefunc_t));
+    memcpy(i_client, &o_client, sizeof(cl_clientfunc_t));
 }
