@@ -1,10 +1,8 @@
 
-#include "include/esp.h"
+#include "features.h"
 #include "../include/globals.h"
 #include "../include/cvars.h"
 #include "../include/util.h"
-
-/* TODO: Replace src/features/include/X.h -> src/features/features.h */
 
 void esp(void) {
     if (!CVAR_ON(esp))

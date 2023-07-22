@@ -3,8 +3,8 @@
 #include "include/sdk.h"
 #include "include/globals.h"
 
-#include "features/include/movement.h"
-#include "features/include/esp.h"
+/* bhop(), esp(), etc. */
+#include "features/features.h"
 
 DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
