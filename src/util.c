@@ -3,6 +3,8 @@
 #include "include/sdk.h"
 #include "include/globals.h"
 
+#include <GL/gl.h>
+
 bool is_alive(cl_entity_t* ent) {
     return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
 }
@@ -53,4 +55,20 @@ bool world_to_screen(vec3_t vec, vec2_t screen) {
     }
 
     return false;
+}
+
+void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
+    const int alpha = 255;
+
+    glDisable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glColor4ub(col.r, col.g, col.b, alpha); /* Set colors + alpha */
+    glLineWidth(w);                         /* Set line width */
+    glBegin(GL_LINES);                      /* Interpret vertices as lines */
+    glVertex2i(x0, y0);                     /* Start */
+    glVertex2i(x1, y1);                     /* End */
+    glEnd();                                /* Stop glBegin, end line mode */
+    glEnable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
 }
