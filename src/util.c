@@ -57,6 +57,24 @@ bool world_to_screen(vec3_t vec, vec2_t screen) {
     return false;
 }
 
+void gl_drawbox(int x, int y, int w, int h, rgb_t c) {
+    /* Line width */
+    const int lw = 1;
+
+    /*
+     *     1
+     *   +----+
+     * 2 |    | 3
+     *   |    |
+     *   +----+
+     *     4
+     */
+    gl_drawline(x, y, x + w, y, lw, c);         /* 1 */
+    gl_drawline(x, y, x, y + h, lw, c);         /* 2 */
+    gl_drawline(x + w, y, x + w, y + h, lw, c); /* 3 */
+    gl_drawline(x, y + h, x + w, y + h, lw, c); /* 4 */
+}
+
 void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
     const int alpha = 255;
 
