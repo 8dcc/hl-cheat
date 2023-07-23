@@ -36,12 +36,14 @@ int h_HUD_Redraw(float time, int intermission) {
     i_engine->pfnDrawSetTextColor(1, 1, 1);
     i_engine->pfnDrawConsoleString(5, 5, "8dcc/hl-cheat");
 
+#ifdef DEBUG
     char pos[100];
     sprintf(pos, "x: %f, y: %f, z: %f", localplayer->origin[0],
             localplayer->origin[1], localplayer->origin[2]);
 
     i_engine->pfnDrawSetTextColor(1, 1, 1);
     i_engine->pfnDrawConsoleString(5, 20, pos);
+#endif
 
     esp();
 
