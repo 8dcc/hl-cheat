@@ -19,6 +19,51 @@ static void autostrafe_legit(usercmd_t* cmd) {
         cmd->sidemove = 450.0f;
 }
 
+/*
+ * See:
+ *   https://github.com/deboogerxyz/ahc/blob/0492646e28dd7234a8cd431d37b152dc18a21b04/ahc.c#L201
+ *   https://github.com/NullHooks/NullHooks/blob/535351569ca599cadd21a286d88098b6dc057a46/src/core/features/movement/bhop.cpp#L73
+ */
+static void autostrafe_rage(usercmd_t* cmd) {
+    if (i_pmove->movetype != MOVETYPE_WALK)
+        return;
+
+    /* TODO: Get at runtime */
+    const float sv_airaccelerate = 10.0f;
+    const float sv_maxspeed      = 320.0f;
+    const float cl_forwardspeed  = 400.0f;
+    const float cl_sidespeed     = 400.0f;
+
+    float speed = vec_len2d(i_pmove->velocity);
+
+    /* If low speed, start forward */
+    if (speed < 30 && (cmd->buttons & IN_FORWARD)) {
+        cmd->forwardmove = 450.0f;
+        return;
+    }
+
+    float term = sv_airaccelerate / sv_maxspeed * 100.0f / speed;
+    if (term < -1 || term > 1)
+        return;
+
+    float best_delta = acosf(term);
+
+    /* Use engine viewangles in case we do something nasty with cmd's angles */
+    vec3_t viewangles;
+    i_engine->GetViewAngles(viewangles);
+
+    /* Get our desired angles and delta */
+    float yaw        = DEG2RAD(viewangles[1]);
+    float vel_dir    = atan2f(i_pmove->velocity[1], i_pmove->velocity[0]) - yaw;
+    float target_ang = atan2f(-cmd->sidemove, cmd->forwardmove);
+    float delta      = angle_delta_rad(vel_dir, target_ang);
+
+    float movedir = delta < 0 ? vel_dir + best_delta : vel_dir - best_delta;
+
+    cmd->forwardmove = cosf(movedir) * cl_forwardspeed;
+    cmd->sidemove    = -sinf(movedir) * cl_sidespeed;
+}
+
 void bhop(usercmd_t* cmd) {
     if (!CVAR_ON(bhop) || i_pmove->movetype != MOVETYPE_WALK)
         return;
@@ -35,6 +80,9 @@ void bhop(usercmd_t* cmd) {
     if (was_in_air) {
         switch ((int)cv_autostrafe->value) {
             case 1:
+                autostrafe_rage(cmd);
+                break;
+            case 2:
                 autostrafe_legit(cmd);
                 break;
             case 0:
