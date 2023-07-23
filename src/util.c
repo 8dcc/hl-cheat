@@ -7,12 +7,24 @@
 #include <math.h>
 #include <GL/gl.h>
 
+cl_entity_t* get_entity(int ent_idx) {
+    if (ent_idx < 0 || ent_idx > 32)
+        return NULL;
+
+    cl_entity_t* ent = i_engine->GetEntityByIndex(ent_idx);
+
+    if (ent->curstate.messagenum < localplayer->curstate.messagenum)
+        return NULL;
+
+    return ent;
+}
+
 bool is_alive(cl_entity_t* ent) {
     return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
 }
 
 bool valid_client(cl_entity_t* ent) {
-    return is_alive(ent) && ent->index != localplayer->index;
+    return ent && ent->index != localplayer->index;
 }
 
 char* get_name(int ent_idx) {

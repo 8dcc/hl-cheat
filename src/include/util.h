@@ -21,6 +21,7 @@ typedef struct {
 
 /*----------------------------------------------------------------------------*/
 
+cl_entity_t* get_entity(int ent_idx);
 bool is_alive(cl_entity_t* ent);
 bool valid_client(cl_entity_t* ent);
 char* get_name(int ent_idx);
