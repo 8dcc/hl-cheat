@@ -13,6 +13,9 @@ typedef struct {
     uint8_t r, g, b;
 } rgb_t;
 
+#define gl_drawline_points(p0, p1, w, col) \
+    gl_drawline(p0[0], p0[1], p1[0], p1[1], w, col);
+
 /*----------------------------------------------------------------------------*/
 
 bool is_alive(cl_entity_t* ent);
