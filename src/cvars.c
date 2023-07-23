@@ -8,7 +8,7 @@ DECL_CVAR(esp);
 
 bool cvars_init(void) {
     cv_bhop = REGISTER_CVAR("bhop", "1");
-    cv_esp  = REGISTER_CVAR("esp", "1");
+    cv_esp  = REGISTER_CVAR("esp", "0");
 
     return true;
 }
