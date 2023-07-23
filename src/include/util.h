@@ -2,6 +2,7 @@
 #define UTIL_H_
 
 #include <stdint.h>
+#include <math.h>
 #include "sdk.h"
 #include "globals.h"
 
@@ -12,6 +13,8 @@ typedef float vec2_t[2];
 typedef struct {
     uint8_t r, g, b;
 } rgb_t;
+
+#define DEG2RAD(n) ((n)*M_PI / 180.0)
 
 #define gl_drawline_points(p0, p1, w, col) \
     gl_drawline(p0[0], p0[1], p1[0], p1[1], w, col);
