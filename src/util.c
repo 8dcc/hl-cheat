@@ -1,8 +1,10 @@
 
+
 #include "include/util.h"
 #include "include/sdk.h"
 #include "include/globals.h"
 
+#include <math.h>
 #include <GL/gl.h>
 
 bool is_alive(cl_entity_t* ent) {
@@ -32,6 +34,21 @@ vec3_t vec3(float x, float y, float z) {
 
 bool vec_is_zero(vec3_t v) {
     return v[0] == 0.0f && v[1] == 0.0f && v[2] == 0.0f;
+}
+
+float vec_len2d(vec3_t v) {
+    return sqrtf(v.x * v.x + v.y * v.y);
+}
+
+float angle_delta_rad(float a, float b) {
+    float delta = isfinite(a - b) ? remainder(a - b, 360) : 0;
+
+    if (a > b && delta >= M_PI)
+        delta -= M_PI * 2;
+    else if (delta <= -M_PI)
+        delta += M_PI * 2;
+
+    return delta;
 }
 
 bool world_to_screen(vec3_t vec, vec2_t screen) {
