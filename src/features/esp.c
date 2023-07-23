@@ -66,9 +66,10 @@ void esp(void) {
 
     /* Iterate all clients */
     for (int i = 1; i <= i_engine->GetMaxClients(); i++) {
-        cl_entity_t* ent = i_engine->GetEntityByIndex(i);
+        cl_entity_t* ent = get_entity(i);
 
-        if (!valid_client(ent) || vec_is_zero(ent->origin))
+        if (!ent || !valid_client(ent) || !is_alive(ent) ||
+            vec_is_zero(ent->origin))
             continue;
 
         const int bh = 70;
@@ -84,7 +85,7 @@ void esp(void) {
             continue;
 
         i_engine->pfnDrawSetTextColor(1, 1, 1);
-        i_engine->pfnDrawConsoleString(s_top[0], s_top[1],
+        i_engine->pfnDrawConsoleString(s_top[0] - 5, s_top[1] - 2,
                                        get_name(ent->index));
     }
 }
