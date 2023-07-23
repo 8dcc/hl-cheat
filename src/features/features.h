@@ -9,5 +9,6 @@ void bhop(usercmd_t* cmd);
 
 /* src/features/esp.c */
 void esp(void);
+void correct_movement(usercmd_t* cmd, vec3_t old_angles);
 
 #endif /* FEATURES_H_ */

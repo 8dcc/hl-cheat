@@ -19,10 +19,14 @@ bool hooks_init(void) {
 void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
     ORIGINAL(CL_CreateMove, frametime, cmd, active);
 
+    vec3_t old_angles = cmd->viewangles;
+
     /* Declared in globals.c */
     localplayer = i_engine->GetLocalPlayer();
 
     bhop(cmd);
+
+    correct_movement(cmd, old_angles);
 }
 
 int h_HUD_Redraw(float time, int intermission) {
