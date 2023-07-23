@@ -25,11 +25,12 @@
 #define REGISTER_CVAR(name, value) \
     i_engine->pfnRegisterVariable(CVAR_PREFIX name, value, CVAR_HACK_ID);
 
-#define CVAR_ON(name) (cv_##name->value != 0)
+#define CVAR_ON(name) (cv_##name->value != 0.0f)
 
 /*----------------------------------------------------------------------------*/
 
 DECL_CVAR_EXTERN(bhop);
+DECL_CVAR_EXTERN(autostrafe);
 DECL_CVAR_EXTERN(esp);
 
 /*----------------------------------------------------------------------------*/
