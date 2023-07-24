@@ -37,7 +37,7 @@ static void autostrafe_rage(usercmd_t* cmd) {
     float speed = vec_len2d(i_pmove->velocity);
 
     /* If low speed, start forward */
-    if (speed < 30 && (cmd->buttons & IN_FORWARD)) {
+    if (speed < 15 && (cmd->buttons & IN_FORWARD)) {
         cmd->forwardmove = 450.0f;
         return;
     }
@@ -81,7 +81,7 @@ void bhop(usercmd_t* cmd) {
     was_in_air = (i_pmove->flags & FL_ONGROUND) == 0;
 
     /* Autostrafe if enabled. Check if we are in the air and holding space. */
-    if (is_jumping && was_in_air) {
+    if (is_jumping) {
         switch ((int)cv_autostrafe->value) {
             case 1:
                 autostrafe_rage(cmd);
