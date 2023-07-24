@@ -15,6 +15,8 @@ typedef struct {
 } rgb_t;
 
 #define DEG2RAD(n) ((n)*M_PI / 180.0)
+#define CLAMP(val, min, max) \
+    (((val) > (max)) ? (max) : (((val) < (min)) ? (min) : (val)))
 
 #define gl_drawline_points(p0, p1, w, col) \
     gl_drawline(p0[0], p0[1], p1[0], p1[1], w, col);
@@ -28,6 +30,7 @@ char* get_name(int ent_idx);
 vec3_t vec3(float x, float y, float z);
 bool vec_is_zero(vec3_t v);
 float vec_len2d(vec3_t v);
+void vec_clamp(vec3_t v);
 float angle_delta_rad(float a, float b);
 bool world_to_screen(vec3_t vec, vec2_t screen);
 void gl_drawbox(int x, int y, int w, int h, rgb_t c);

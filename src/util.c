@@ -52,6 +52,12 @@ float vec_len2d(vec3_t v) {
     return sqrtf(v.x * v.x + v.y * v.y);
 }
 
+void vec_clamp(vec3_t v) {
+    v[0] = CLAMP(v[0], -89.0f, 89.0f);
+    v[1] = CLAMP(remainderf(v[1], 360.0f), -180.0f, 180.0f); /* v.y % 360 */
+    v[2] = CLAMP(v[2], -50.0f, 50.0f);
+}
+
 float angle_delta_rad(float a, float b) {
     float delta = isfinite(a - b) ? remainder(a - b, 360) : 0;
 
