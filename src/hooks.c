@@ -9,10 +9,12 @@
 
 DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
+DECL_HOOK(StudioRenderModel);
 
 bool hooks_init(void) {
     HOOK(i_client, CL_CreateMove);
     HOOK(i_client, HUD_Redraw);
+    HOOK(i_studiomodelrenderer, StudioRenderModel);
 
     return true;
 }
@@ -50,4 +52,10 @@ int h_HUD_Redraw(float time, int intermission) {
     esp();
 
     return ret;
+}
+
+void h_StudioRenderModel(void* this_ptr) {
+    ORIGINAL(StudioRenderModel, this_ptr);
+
+    printf("Hi from StudioRenderModel!\n");
 }
