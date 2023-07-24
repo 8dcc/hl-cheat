@@ -80,7 +80,7 @@ void esp(void) {
         if (!valid_player(ent) || !is_alive(ent) || vec_is_zero(ent->origin))
             continue;
 
-        const int bh = 70;
+        const int bh = (ent->curstate.usehull) ? 44 : 70;
         const int bw = 25;
 
         /* If ESP_BOX is enabled, draw it. If it returns false, continue */
