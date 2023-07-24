@@ -70,14 +70,18 @@ void bhop(usercmd_t* cmd) {
 
     static bool was_in_air = false;
 
+    /* Used bellow to check if we should autostrafe before. Store since we might
+     * change cmd->buttons (autostrafe only when user hold space) */
+    bool is_jumping = cmd->buttons & IN_JUMP;
+
     /* 2 frames in air, release jump */
     if (was_in_air && !(i_pmove->flags & FL_ONGROUND))
         cmd->buttons &= ~IN_JUMP;
 
     was_in_air = (i_pmove->flags & FL_ONGROUND) == 0;
 
-    /* Autostrafe if enabled. Check if we are in the air. */
-    if (was_in_air) {
+    /* Autostrafe if enabled. Check if we are in the air and holding space. */
+    if (is_jumping && was_in_air) {
         switch ((int)cv_autostrafe->value) {
             case 1:
                 autostrafe_rage(cmd);
