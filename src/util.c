@@ -6,6 +6,8 @@
 
 #include <math.h>
 #include <GL/gl.h>
+#include <unistd.h>   /* getpagesize */
+#include <sys/mman.h> /* mprotect */
 
 cl_entity_t* get_entity(int ent_idx) {
     if (ent_idx < 0 || ent_idx > 32)
@@ -124,4 +126,26 @@ void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
     glEnd();                                /* Stop glBegin, end line mode */
     glEnable(GL_TEXTURE_2D);
     glDisable(GL_BLEND);
+}
+
+/*
+ * Credits:
+ *   https://github.com/UnkwUsr/hlhax/blob/26491984996c8389efec977ed940c5a67a0ecca4/src/utils/mem/mem.cpp
+ *   Linux kernel, tools/virtio/linux/kernel.h
+ */
+#define PAGE_SIZE          getpagesize()
+#define PAGE_MASK          (~(PAGE_SIZE - 1))
+#define PAGE_ALIGN(x)      ((x + PAGE_SIZE - 1) & PAGE_MASK)
+#define PAGE_ALIGN_DOWN(x) (PAGE_ALIGN(x) - PAGE_SIZE)
+
+bool unprotect_addr(void* ptr) {
+    void* p  = (void*)PAGE_ALIGN_DOWN((int)ptr);
+    int pgsz = getpagesize();
+
+    if (mprotect(p, pgsz, PROT_READ | PROT_WRITE) == -1) {
+        printf("hl-cheat: error unprotecting %p\n", ptr);
+        return false;
+    }
+
+    return true;
 }
