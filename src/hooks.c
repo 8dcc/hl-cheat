@@ -2,6 +2,7 @@
 #include "include/hooks.h"
 #include "include/sdk.h"
 #include "include/globals.h"
+#include "include/util.h"
 
 /* bhop(), esp(), etc. */
 #include "features/features.h"
@@ -27,6 +28,7 @@ void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
     bhop(cmd);
 
     correct_movement(cmd, old_angles);
+    vec_clamp(cmd->viewangles);
 }
 
 int h_HUD_Redraw(float time, int intermission) {
