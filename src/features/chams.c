@@ -24,7 +24,7 @@ bool chams(void* this_ptr) {
     if (ent->index == localplayer->index) {
         /* TODO: Hand chams (set var, check in gl hook, return true) */
         return false;
-    } else if (!valid_client(ent) || !is_alive(ent)) {
+    } else if (!valid_player(ent) || !is_alive(ent)) {
         return false;
     }
 

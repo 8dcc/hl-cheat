@@ -9,13 +9,13 @@
 #include <unistd.h>   /* getpagesize */
 #include <sys/mman.h> /* mprotect */
 
-cl_entity_t* get_entity(int ent_idx) {
+cl_entity_t* get_player(int ent_idx) {
     if (ent_idx < 0 || ent_idx > 32)
         return NULL;
 
     cl_entity_t* ent = i_engine->GetEntityByIndex(ent_idx);
 
-    if (ent->curstate.messagenum < localplayer->curstate.messagenum)
+    if (!valid_player(ent))
         return NULL;
 
     return ent;
@@ -25,8 +25,9 @@ bool is_alive(cl_entity_t* ent) {
     return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
 }
 
-bool valid_client(cl_entity_t* ent) {
-    return ent && ent->index != localplayer->index;
+bool valid_player(cl_entity_t* ent) {
+    return ent && ent->index != localplayer->index &&
+           ent->curstate.messagenum >= localplayer->curstate.messagenum;
 }
 
 char* get_name(int ent_idx) {

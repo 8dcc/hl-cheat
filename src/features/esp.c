@@ -66,10 +66,9 @@ void esp(void) {
 
     /* Iterate all clients */
     for (int i = 1; i <= i_engine->GetMaxClients(); i++) {
-        cl_entity_t* ent = get_entity(i);
+        cl_entity_t* ent = get_player(i);
 
-        if (!ent || !valid_client(ent) || !is_alive(ent) ||
-            vec_is_zero(ent->origin))
+        if (!valid_player(ent) || !is_alive(ent) || vec_is_zero(ent->origin))
             continue;
 
         const int bh = 70;
