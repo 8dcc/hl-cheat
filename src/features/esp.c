@@ -5,6 +5,14 @@
 #include "../include/cvars.h"
 #include "../include/util.h"
 
+/* For cv_esp */
+enum esp_values {
+    ESP_OFF  = 0,
+    ESP_BOX  = 1,
+    ESP_NAME = 2,
+    /* ESP_ALL should be 3 but we can just OR box and name */
+};
+
 static bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
     /*
      * Parameters:
@@ -61,7 +69,8 @@ static bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
 }
 
 void esp(void) {
-    if (!CVAR_ON(esp))
+    const int setting = (int)cv_esp->value;
+    if (setting == ESP_OFF)
         return;
 
     /* Iterate all clients */
@@ -74,15 +83,23 @@ void esp(void) {
         const int bh = 70;
         const int bw = 25;
 
-        if (!gl_draw3dbox(ent->origin, bh, bw, 1))
+        /* If ESP_BOX is enabled, draw it. If it returns false, continue */
+        if (setting & ESP_BOX && !gl_draw3dbox(ent->origin, bh, bw, 1))
             continue;
 
+        /* Rest of the loop is for name esp, if var is not enabled, continue */
+        if (!(setting & ESP_NAME))
+            continue;
+
+        /* Draw name on top of the player. */
         vec3_t top = vec3(ent->origin[0], ent->origin[1], ent->origin[2] + bh);
         vec2_t s_top;
 
         if (!world_to_screen(top, s_top))
             continue;
 
+        /* TODO: Instead of -5px, center the player name to the player origin.
+         *       I don't know how to get the text size before rendering. */
         i_engine->pfnDrawSetTextColor(1, 1, 1);
         i_engine->pfnDrawConsoleString(s_top[0] - 5, s_top[1] - 2,
                                        get_name(ent->index));
