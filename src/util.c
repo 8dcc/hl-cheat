@@ -26,7 +26,7 @@ bool is_alive(cl_entity_t* ent) {
 }
 
 bool valid_player(cl_entity_t* ent) {
-    return ent && ent->index != localplayer->index &&
+    return ent && ent->player && ent->index != localplayer->index &&
            ent->curstate.messagenum >= localplayer->curstate.messagenum;
 }
 
