@@ -27,6 +27,9 @@
 /* model_t, vec4_t */
 #include "sdk/common/com_model.h"
 
+/* engine_studio_api_t */
+#include "sdk/common/r_studioint.h"
+
 /*
  * Credits:
  *   https://github.com/UnkwUsr/hlhax/blob/26491984996c8389efec977ed940c5a67a0ecca4/src/sdk.h#L45
