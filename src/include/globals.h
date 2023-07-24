@@ -30,6 +30,7 @@ extern void** h_client; /* hClientDLL hander */
 DECL_INTF_EXTERN(cl_enginefunc_t, engine);
 DECL_INTF_EXTERN(cl_clientfunc_t, client);
 DECL_INTF_EXTERN(playermove_t, pmove);
+DECL_INTF_EXTERN(engine_studio_api_t, enginestudio);
 DECL_INTF_EXTERN(StudioModelRenderer_t, studiomodelrenderer);
 
 extern cl_entity_t* localplayer;

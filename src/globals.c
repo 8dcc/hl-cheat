@@ -12,6 +12,7 @@ void** h_client;
 DECL_INTF(cl_enginefunc_t, engine);
 DECL_INTF(cl_clientfunc_t, client);
 DECL_INTF(playermove_t, pmove);
+DECL_INTF(engine_studio_api_t, enginestudio);
 DECL_INTF(StudioModelRenderer_t, studiomodelrenderer);
 
 /* Updated in CL_CreateMove hook */
@@ -39,14 +40,16 @@ bool globals_init(void) {
     }
 
     /* Get symbol addresses using dlsym and the handler we just opened */
-    i_engine = (cl_enginefunc_t*)dlsym(hw, "cl_enginefuncs");
-    i_client = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
-    i_pmove  = *(playermove_t**)dlsym(hw, "pmove");
+    i_engine       = (cl_enginefunc_t*)dlsym(hw, "cl_enginefuncs");
+    i_client       = (cl_clientfunc_t*)dlsym(hw, "cl_funcs");
+    i_pmove        = *(playermove_t**)dlsym(hw, "pmove");
+    i_enginestudio = (engine_studio_api_t*)dlsym(hw, "engine_studio_api");
 
     const char* SMR_STR   = "g_StudioRenderer"; /* For clang-format */
     i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(*h_client, SMR_STR);
 
-    if (!i_engine || !i_client || !i_pmove || !i_studiomodelrenderer) {
+    if (!i_engine || !i_client || !i_pmove || !i_enginestudio ||
+        !i_studiomodelrenderer) {
         printf("hl-cheat: globals_init: couldn't load some symbols\n");
         return false;
     }
