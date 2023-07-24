@@ -10,7 +10,7 @@ DECL_CVAR(esp);
 bool cvars_init(void) {
     cv_bhop       = REGISTER_CVAR("bhop", "1");
     cv_autostrafe = REGISTER_CVAR("autostrafe", "0");
-    cv_esp        = REGISTER_CVAR("esp", "0");
+    cv_esp        = REGISTER_CVAR("esp", "1");
 
     return true;
 }
