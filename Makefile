@@ -5,7 +5,7 @@ INCLUDES=-Isrc/include/sdk/common -Isrc/include/sdk/public -Isrc/include/sdk/pm_
 CFLAGS=-Wall -Wextra -Wno-write-strings -m32 -fPIC $(INCLUDES)
 LDFLAGS=-lm
 
-OBJS=obj/main.c.o obj/globals.c.o obj/cvars.c.o obj/hooks.c.o obj/util.c.o obj/features/movement.c.o obj/features/esp.c.o
+OBJS=obj/main.c.o obj/globals.c.o obj/cvars.c.o obj/hooks.c.o obj/util.c.o obj/features/movement.c.o obj/features/esp.c.o obj/features/chams.c.o
 BIN=libhlcheat.so
 
 .PHONY: clean all inject
