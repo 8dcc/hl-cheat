@@ -55,7 +55,6 @@ int h_HUD_Redraw(float time, int intermission) {
 }
 
 void h_StudioRenderModel(void* this_ptr) {
-    ORIGINAL(StudioRenderModel, this_ptr);
-
-    printf("Hi from StudioRenderModel!\n");
+    if (!chams(this_ptr))
+        ORIGINAL(StudioRenderModel, this_ptr);
 }

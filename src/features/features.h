@@ -11,4 +11,7 @@ void bhop(usercmd_t* cmd);
 void esp(void);
 void correct_movement(usercmd_t* cmd, vec3_t old_angles);
 
+/* src/features/chams.c */
+bool chams(void* this_ptr);
+
 #endif /* FEATURES_H_ */
