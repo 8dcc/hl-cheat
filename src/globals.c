@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <dlfcn.h>
+#include <sys/mman.h> /* PROT_* */
 
 #include "include/globals.h"
 #include "include/sdk.h"
@@ -54,7 +55,7 @@ bool globals_init(void) {
         return false;
     }
 
-    if (!unprotect_addr(i_studiomodelrenderer)) {
+    if (!protect_addr(i_studiomodelrenderer, PROT_READ | PROT_WRITE)) {
         printf("hl-cheat: globals_init: couldn't unprotect address of SMR\n");
         return false;
     }

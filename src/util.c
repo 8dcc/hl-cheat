@@ -139,12 +139,12 @@ void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
 #define PAGE_ALIGN(x)      ((x + PAGE_SIZE - 1) & PAGE_MASK)
 #define PAGE_ALIGN_DOWN(x) (PAGE_ALIGN(x) - PAGE_SIZE)
 
-bool unprotect_addr(void* ptr) {
+bool protect_addr(void* ptr, int new_flags) {
     void* p  = (void*)PAGE_ALIGN_DOWN((int)ptr);
     int pgsz = getpagesize();
 
-    if (mprotect(p, pgsz, PROT_READ | PROT_WRITE) == -1) {
-        printf("hl-cheat: error unprotecting %p\n", ptr);
+    if (mprotect(p, pgsz, new_flags) == -1) {
+        printf("hl-cheat: error protecting %p\n", ptr);
         return false;
     }
 
