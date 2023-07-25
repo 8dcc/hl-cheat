@@ -6,14 +6,7 @@
 
 #include <GL/gl.h>
 
-enum visible_flags {
-    NONE        = 0,
-    VISIBLE     = 1,
-    NOT_VISIBLE = 2,
-    /* TODO: HANDS */
-};
-
-static visible_flags visible_mode;
+visible_flags visible_mode;
 
 bool chams(void* this_ptr) {
     if (!CVAR_ON(chams))
