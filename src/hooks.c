@@ -72,5 +72,26 @@ void h_StudioRenderModel(void* this_ptr) {
 /*----------------------------------------------------------------------------*/
 
 void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
+    /* This visible_mode variable is changed inside the chams() function, which
+     * is called from the StudioRenderModel hook.
+     *
+     * Depending on the type of entity we are trying to render from there, and
+     * depending on its visibility, we change this visible_mode variable. */
+    switch (visible_mode) {
+        case VISIBLE:
+            r = 0.40f;
+            g = 0.73f;
+            b = 0.41f;
+            break;
+        case NOT_VISIBLE:
+            r = 0.90f;
+            g = 0.07f;
+            b = 0.27f;
+            break;
+        default:
+        case NONE:
+            break;
+    }
+
     ORIGINAL(glColor4f, r, g, b, a);
 }
