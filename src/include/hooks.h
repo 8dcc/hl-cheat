@@ -89,10 +89,14 @@
 /*----------------------------------------------------------------------------*/
 
 bool hooks_init(void);
+void hooks_restore(void);
+
 DECL_HOOK_EXTERN(void, CL_CreateMove, float, usercmd_t*, int);
 DECL_HOOK_EXTERN(int, HUD_Redraw, float, int);
 DECL_HOOK_EXTERN(void, StudioRenderModel, void* this_ptr);
 
 DECL_HOOK_EXTERN(void, glColor4f, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
+
+DECL_HOOK_EXTERN(void, CL_Move);
 
 #endif /* HOOKS_H_ */

@@ -3,6 +3,7 @@
 #include "include/sdk.h"
 #include "include/globals.h"
 #include "include/util.h"
+#include "include/detour.h" /* 8dcc/detour-lib */
 
 /* bhop(), esp(), etc. */
 #include "features/features.h"
@@ -13,6 +14,11 @@ DECL_HOOK(StudioRenderModel);
 
 DECL_HOOK(glColor4f);
 
+/* For detour hooking CL_Move */
+static detour_data_t clmove_data;
+DECL_DETOUR_TYPE(void, clmove);
+DECL_HOOK(CL_Move);
+
 bool hooks_init(void) {
     HOOK(i_client, CL_CreateMove);
     HOOK(i_client, HUD_Redraw);
@@ -20,7 +26,19 @@ bool hooks_init(void) {
 
     GL_HOOK(glColor4f);
 
+    void* clmove_ptr = dlsym(hw, "CL_Move");
+    if (!clmove_ptr)
+        return false;
+
+    /* Initialize clmove_data struct for detour, and add the hook */
+    detour_init(&clmove_data, clmove_ptr, (void*)h_CL_Move);
+    detour_add(&clmove_data);
+
     return true;
+}
+
+void hooks_restore(void) {
+    detour_del(&clmove_data);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -94,4 +112,11 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
     }
 
     ORIGINAL(glColor4f, r, g, b, a);
+}
+
+/*----------------------------------------------------------------------------*/
+
+void h_CL_Move() {
+    /* printf("Hello from CL_Move!\n"); */
+    CALL_ORIGINAL(clmove_data, clmove);
 }
