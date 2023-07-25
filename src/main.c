@@ -46,6 +46,8 @@ void unload() {
         /* TODO: Remove our cvars */
 
         globals_restore();
+
+        GL_UNHOOK(glColor4f); /* Manually restore OpenGL hooks here */
     }
 
     printf("hl-cheat unloaded.\n\n");
