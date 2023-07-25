@@ -67,9 +67,11 @@ bool globals_init(void) {
 void globals_store(void) {
     memcpy(&o_engine, i_engine, sizeof(cl_enginefunc_t));
     memcpy(&o_client, i_client, sizeof(cl_clientfunc_t));
+    memcpy(&o_enginestudio, i_enginestudio, sizeof(engine_studio_api_t));
 }
 
 void globals_restore(void) {
     memcpy(i_engine, &o_engine, sizeof(cl_enginefunc_t));
     memcpy(i_client, &o_client, sizeof(cl_clientfunc_t));
+    memcpy(i_enginestudio, &o_enginestudio, sizeof(engine_studio_api_t));
 }
