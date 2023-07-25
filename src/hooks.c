@@ -5,6 +5,9 @@
 #include "include/util.h"
 #include "include/detour.h" /* 8dcc/detour-lib */
 
+/* DELME */
+#include "include/cvars.h"
+
 /* bhop(), esp(), etc. */
 #include "features/features.h"
 
@@ -117,6 +120,10 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
 /*----------------------------------------------------------------------------*/
 
 void h_CL_Move() {
-    /* printf("Hello from CL_Move!\n"); */
+    if (cv_clmove->value != 0) {
+        for (int i = 0; i < (int)cv_clmove->value; i++)
+            CALL_ORIGINAL(clmove_data, clmove);
+    }
+
     CALL_ORIGINAL(clmove_data, clmove);
 }
