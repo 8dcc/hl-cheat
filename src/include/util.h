@@ -33,6 +33,7 @@ float vec_len2d(vec3_t v);
 void vec_clamp(vec3_t v);
 float angle_delta_rad(float a, float b);
 bool world_to_screen(vec3_t vec, vec2_t screen);
+void engine_draw_text(int x, int y, char* s, rgb_t c);
 void gl_drawbox(int x, int y, int w, int h, rgb_t c);
 void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col);
 bool protect_addr(void* ptr, int new_flags);

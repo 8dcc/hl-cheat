@@ -95,6 +95,16 @@ bool world_to_screen(vec3_t vec, vec2_t screen) {
     return false;
 }
 
+void engine_draw_text(int x, int y, char* s, rgb_t c) {
+    /* Convert to 0..1 range */
+    float r = c.r / 255.0f;
+    float g = c.g / 255.0f;
+    float b = c.b / 255.0f;
+
+    i_engine->pfnDrawSetTextColor(r, g, b);
+    i_engine->pfnDrawConsoleString(x, y, s);
+}
+
 void gl_drawbox(int x, int y, int w, int h, rgb_t c) {
     /* Line width */
     const int lw = 1;
