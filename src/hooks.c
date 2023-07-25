@@ -4,21 +4,23 @@
 #include "include/globals.h"
 #include "include/util.h"
 #include "include/cvars.h"
-#include "include/detour.h" /* 8dcc/detour-lib */
+#include "include/detour.h"    /* 8dcc/detour-lib */
+#include "features/features.h" /* bhop(), esp(), etc. */
 
-/* bhop(), esp(), etc. */
-#include "features/features.h"
-
+/* Normal VMT hooks */
 DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
 DECL_HOOK(StudioRenderModel);
 
+/* OpenGL hooks */
 DECL_HOOK(glColor4f);
 
-/* For detour hooking CL_Move */
-static detour_data_t clmove_data;
-DECL_DETOUR_TYPE(void, clmove);
+/* Detour hooks */
+static detour_data_t detour_data_clmove;
+DECL_DETOUR_TYPE(void, clmove_type);
 DECL_HOOK(CL_Move);
+
+/*----------------------------------------------------------------------------*/
 
 bool hooks_init(void) {
     HOOK(i_client, CL_CreateMove);
@@ -31,15 +33,15 @@ bool hooks_init(void) {
     if (!clmove_ptr)
         return false;
 
-    /* Initialize clmove_data struct for detour, and add the hook */
-    detour_init(&clmove_data, clmove_ptr, (void*)h_CL_Move);
-    detour_add(&clmove_data);
+    /* Initialize detour_data_clmove struct for detour, and add the hook */
+    detour_init(&detour_data_clmove, clmove_ptr, (void*)h_CL_Move);
+    detour_add(&detour_data_clmove);
 
     return true;
 }
 
 void hooks_restore(void) {
-    detour_del(&clmove_data);
+    detour_del(&detour_data_clmove);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -110,8 +112,8 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
 void h_CL_Move() {
     if (cv_clmove->value != 0) {
         for (int i = 0; i < (int)cv_clmove->value; i++)
-            CALL_ORIGINAL(clmove_data, clmove);
+            CALL_ORIGINAL(detour_data_clmove, clmove_type);
     }
 
-    CALL_ORIGINAL(clmove_data, clmove);
+    CALL_ORIGINAL(detour_data_clmove, clmove_type);
 }
