@@ -6,6 +6,8 @@
 
 #include "sdk.h"
 
+#include <dlfcn.h> /* dlsym */
+#include <GL/gl.h> /* GLFloat */
 /*
  * Table of prefixes:
  *   prefix | meaning
@@ -13,6 +15,7 @@
  *   *_t    | typedef (function type)
  *   h_*    | hook function (ours)
  *   ho_*   | hook original (ptr to orig)
+ *   hp_*   | hook pointer (pointer to function pointer)
  *
  *
  * DECL_HOOK_EXTERN: Version for the header. typedef's the function pointer with
@@ -43,6 +46,23 @@
  *
  *   ORIGINAL(CL_CreateMove, frametime, cmd, active);
  *     ho_CL_CreateMove(frametime, cmd, active);        // Original
+ *
+ *
+ * GL_HOOK: Hooks a OpenGL function. Example:
+ *
+ *   GL_HOOK(glColor4f);
+ *     void** hp_glColor4f = (void**)dlsym(hw, "qglColor4f"); // Ptr
+ *     ho_glColor4f = (glColor4f_t)(*hp_glColor4f);      // Original from ptr
+ *     *hp_glColor4f = (void*)h_glColor4f;               // Set ptr to our func
+
+ * Note: ho_glColor4f and h_glColor4f sould be declared with DECL_HOOK_EXTERN
+ *
+ *
+ * GL_UNHOOK: Restores a OpenGL hook created by GL_HOOK. Example:
+ *
+ *   GL_UNHOOK(glColor4f);
+ *     void** hp_glColor4f = (void**)dlsym(hw, "qglColor4f"); // Ptr
+ *     *hp_glColor4f = (void*)ho_glColor4f;                   // Set to original
  */
 #define DECL_HOOK_EXTERN(type, name, ...)  \
     typedef type (*name##_t)(__VA_ARGS__); \
@@ -57,11 +77,22 @@
 
 #define ORIGINAL(name, ...) ho_##name(__VA_ARGS__);
 
+#define GL_HOOK(name)                                \
+    void** hp_##name = (void**)dlsym(hw, "q" #name); \
+    ho_##name        = (name##_t)(*hp_##name);       \
+    *hp_##name       = (void*)h_##name;
+
+#define GL_UNHOOK(name)                              \
+    void** hp_##name = (void**)dlsym(hw, "q" #name); \
+    *hp_##name       = (void*)ho_##name;
+
 /*----------------------------------------------------------------------------*/
 
 bool hooks_init(void);
 DECL_HOOK_EXTERN(void, CL_CreateMove, float, usercmd_t*, int);
 DECL_HOOK_EXTERN(int, HUD_Redraw, float, int);
 DECL_HOOK_EXTERN(void, StudioRenderModel, void* this_ptr);
+
+DECL_HOOK_EXTERN(void, glColor4f, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
 
 #endif /* HOOKS_H_ */

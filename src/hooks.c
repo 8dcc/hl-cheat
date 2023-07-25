@@ -11,13 +11,19 @@ DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
 DECL_HOOK(StudioRenderModel);
 
+DECL_HOOK(glColor4f);
+
 bool hooks_init(void) {
     HOOK(i_client, CL_CreateMove);
     HOOK(i_client, HUD_Redraw);
     HOOK(i_studiomodelrenderer, StudioRenderModel);
 
+    GL_HOOK(glColor4f);
+
     return true;
 }
+
+/*----------------------------------------------------------------------------*/
 
 void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
     ORIGINAL(CL_CreateMove, frametime, cmd, active);
@@ -32,6 +38,8 @@ void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
     correct_movement(cmd, old_angles);
     vec_clamp(cmd->viewangles);
 }
+
+/*----------------------------------------------------------------------------*/
 
 int h_HUD_Redraw(float time, int intermission) {
     int ret = ORIGINAL(HUD_Redraw, time, intermission);
@@ -54,7 +62,15 @@ int h_HUD_Redraw(float time, int intermission) {
     return ret;
 }
 
+/*----------------------------------------------------------------------------*/
+
 void h_StudioRenderModel(void* this_ptr) {
     if (!chams(this_ptr))
         ORIGINAL(StudioRenderModel, this_ptr);
+}
+
+/*----------------------------------------------------------------------------*/
+
+void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
+    ORIGINAL(glColor4f, r, g, b, a);
 }
