@@ -100,8 +100,7 @@ void esp(void) {
 
         /* TODO: Instead of -5px, center the player name to the player origin.
          *       I don't know how to get the text size before rendering. */
-        i_engine->pfnDrawSetTextColor(1, 1, 1);
-        i_engine->pfnDrawConsoleString(s_top[0] - 5, s_top[1] - 2,
-                                       get_name(ent->index));
+        engine_draw_text(s_top[0] - 5, s_top[1] - 2, get_name(ent->index),
+                         (rgb_t){ 255, 255, 255 });
     }
 }

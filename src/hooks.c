@@ -3,10 +3,8 @@
 #include "include/sdk.h"
 #include "include/globals.h"
 #include "include/util.h"
-#include "include/detour.h" /* 8dcc/detour-lib */
-
-/* DELME */
 #include "include/cvars.h"
+#include "include/detour.h" /* 8dcc/detour-lib */
 
 /* bhop(), esp(), etc. */
 #include "features/features.h"
@@ -66,17 +64,7 @@ int h_HUD_Redraw(float time, int intermission) {
     int ret = ORIGINAL(HUD_Redraw, time, intermission);
 
     /* Watermark */
-    i_engine->pfnDrawSetTextColor(1, 1, 1);
-    i_engine->pfnDrawConsoleString(5, 5, "8dcc/hl-cheat");
-
-#ifdef DEBUG
-    char pos[100];
-    sprintf(pos, "x: %f, y: %f, z: %f", localplayer->origin[0],
-            localplayer->origin[1], localplayer->origin[2]);
-
-    i_engine->pfnDrawSetTextColor(1, 1, 1);
-    i_engine->pfnDrawConsoleString(5, 20, pos);
-#endif
+    engine_draw_text(5, 5, "8dcc/hl-cheat", (rgb_t){ 255, 255, 255 });
 
     esp();
 
