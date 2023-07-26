@@ -99,6 +99,11 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
             g = 0.07f;
             b = 0.27f;
             break;
+        case HANDS:
+            r = 0.94f;
+            g = 0.66f;
+            b = 0.94f;
+            break;
         default:
         case NONE:
             break;

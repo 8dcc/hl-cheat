@@ -6,18 +6,35 @@
 
 #include <GL/gl.h>
 
+enum chams_settings {
+    DISABLED     = 0,
+    PLAYER_CHAMS = 1,
+    HAND_CHAMS   = 2,
+    /* ALL is 3, but we can OR player and hands */
+};
+
 visible_flags visible_mode;
 
 bool chams(void* this_ptr) {
-    if (!CVAR_ON(chams))
+    const int setting = cv_chams->value;
+    if (setting == DISABLED)
         return false;
 
     cl_entity_t* ent = i_enginestudio->GetCurrentEntity();
 
-    if (ent->index == localplayer->index) {
-        /* TODO: Hand chams (set var, check in gl hook, return true) */
-        return false;
-    } else if (!valid_player(ent) || !is_alive(ent)) {
+    if (ent->index == localplayer->index && setting & HAND_CHAMS) {
+        /* If we are rendering hands and setting is on, render them */
+        glDisable(GL_TEXTURE_2D);
+        visible_mode = HANDS; /* Set for this call */
+
+        i_studiomodelrenderer->StudioRenderFinal(this_ptr);
+
+        visible_mode = NONE; /* Reset for future calls */
+        glEnable(GL_TEXTURE_2D);
+        return true;
+    } else if (!(setting & PLAYER_CHAMS) || !valid_player(ent) ||
+               !is_alive(ent)) {
+        /* If we don't want player chams, or this is not a player, stop */
         return false;
     }
 

@@ -8,7 +8,7 @@ enum visible_flags {
     NONE        = 0,
     VISIBLE     = 1,
     NOT_VISIBLE = 2,
-    /* TODO: HANDS */
+    HANDS       = 3,
 };
 
 /*----------------------------------------------------------------------------*/
