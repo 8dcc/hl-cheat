@@ -3,6 +3,11 @@
 pid=$(pidof "hl_linux")
 libpath=$(realpath "libhlcheat.so")
 
+if [ "$pid" == "" ]; then
+   echo "inject.sh: process not running."
+   exit 1
+fi
+
 # Used to echo the command. For debugging.
 #set -x
 
@@ -21,7 +26,7 @@ if [ "$1" == "unload" ]; then
          -ex "detach"                                       \
          -ex "quit"
 
-    exit 0;
+    exit 0
 fi
 
 if grep -q "$libpath" "/proc/$pid/maps"; then
