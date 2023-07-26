@@ -33,7 +33,6 @@ DECL_CVAR_EXTERN(bhop);
 DECL_CVAR_EXTERN(autostrafe);
 DECL_CVAR_EXTERN(esp);
 DECL_CVAR_EXTERN(chams);
-
 DECL_CVAR_EXTERN(clmove);
 
 /*----------------------------------------------------------------------------*/
