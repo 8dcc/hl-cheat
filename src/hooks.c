@@ -100,9 +100,11 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
             b = 0.27f;
             break;
         case HANDS:
-            r = 0.94f;
-            g = 0.66f;
-            b = 0.94f;
+            /* Multiply by original func parameters for non-flat chams.
+             * Credits: @oxiKKK */
+            r *= 0.94f;
+            g *= 0.66f;
+            b *= 0.94f;
             break;
         default:
         case NONE:
