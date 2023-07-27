@@ -319,4 +319,18 @@ typedef struct {
     bool m_bMultiplayer;
 } game_t;
 
+/* sdk/cl_dll/hud.h */
+#ifndef MAX_TEAM_NAME
+#define MAX_TEAM_NAME 16
+#endif
+typedef struct {
+    short frags;
+    short deaths;
+    short playerclass;
+    short health; /* UNUSED */
+    bool dead;
+    short teamnumber;
+    char teamname[MAX_TEAM_NAME];
+} extra_player_info_t;
+
 #endif /* SDK_H_ */
