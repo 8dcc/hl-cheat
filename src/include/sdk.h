@@ -292,4 +292,31 @@ typedef struct StudioModelRenderer_s {
     */
 } StudioModelRenderer_t;
 
+/* Credits: @oixKKK */
+typedef struct {
+    void* vtbl;
+    bool m_bActiveApp;
+
+    void* m_hSDLWindow; /* pmainwindow  */
+    void* m_hSDLGLContext;
+
+    bool m_bExpectSyntheticMouseMotion;
+    int m_nMouseTargetX;
+    int m_nMouseTargetY;
+
+    int m_nWarpDelta;
+
+    bool m_bCursorVisible;
+
+    /* Window pos */
+    int m_x;
+    int m_y;
+
+    /* Window size */
+    int m_width;
+    int m_height;
+
+    bool m_bMultiplayer;
+} game_t;
+
 #endif /* SDK_H_ */
