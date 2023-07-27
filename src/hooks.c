@@ -69,6 +69,7 @@ int h_HUD_Redraw(float time, int intermission) {
     engine_draw_text(5, 5, "8dcc/hl-cheat", (rgb_t){ 255, 255, 255 });
 
     esp();
+    custom_crosshair();
 
     return ret;
 }
