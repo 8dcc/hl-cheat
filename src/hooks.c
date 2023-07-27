@@ -106,9 +106,9 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
             b = 0.96f;
             break;
         case FRIEND_NOT_VISIBLE:
-            r = 0.00f;
-            g = 0.53f;
-            b = 0.81f;
+            r = 0.10f;
+            g = 0.20f;
+            b = 0.70f;
             break;
         case HANDS:
             /* Multiply by original func parameters for non-flat chams.
