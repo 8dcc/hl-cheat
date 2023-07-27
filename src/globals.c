@@ -16,6 +16,9 @@ DECL_INTF(playermove_t, pmove);
 DECL_INTF(engine_studio_api_t, enginestudio);
 DECL_INTF(StudioModelRenderer_t, studiomodelrenderer);
 
+/* Game struct with some useful info */
+game_t* game_info;
+
 /* Updated in CL_CreateMove hook */
 cl_entity_t* localplayer = NULL;
 
@@ -46,8 +49,10 @@ bool globals_init(void) {
     const char* SMR_STR   = "g_StudioRenderer"; /* For clang-format */
     i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(*h_client, SMR_STR);
 
+    game_info = *(game_t**)dlsym(hw, "game");
+
     if (!i_engine || !i_client || !i_pmove || !i_enginestudio ||
-        !i_studiomodelrenderer) {
+        !i_studiomodelrenderer || !game_info) {
         printf("hl-cheat: globals_init: couldn't load some symbols\n");
         return false;
     }

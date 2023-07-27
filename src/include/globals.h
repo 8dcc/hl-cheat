@@ -33,6 +33,7 @@ DECL_INTF_EXTERN(playermove_t, pmove);
 DECL_INTF_EXTERN(engine_studio_api_t, enginestudio);
 DECL_INTF_EXTERN(StudioModelRenderer_t, studiomodelrenderer);
 
+extern game_t* game_info;
 extern cl_entity_t* localplayer;
 
 /*----------------------------------------------------------------------------*/
