@@ -8,15 +8,17 @@
 
 enum chams_settings {
     DISABLED     = 0,
-    PLAYER_CHAMS = 1,
-    HAND_CHAMS   = 2,
-    /* ALL is 3, but we can OR player and hands */
+    ENEMY_CHAMS  = 1,
+    FRIEND_CHAMS = 2,
+    /* ALL_PLAYER is 3, but we can OR player and hands */
+    HAND_CHAMS = 4,
+    /* ALL is 5, but we will convert it to 7 so every setting can be OR'd */
 };
 
 visible_flags visible_mode;
 
 bool chams(void* this_ptr) {
-    const int setting = cv_chams->value;
+    const int setting = cv_chams->value == 5.0f ? 7 : cv_chams->value;
     if (setting == DISABLED)
         return false;
 
@@ -32,21 +34,29 @@ bool chams(void* this_ptr) {
         visible_mode = NONE; /* Reset for future calls */
         glEnable(GL_TEXTURE_2D);
         return true;
-    } else if (!(setting & PLAYER_CHAMS) || !valid_player(ent) ||
-               !is_alive(ent)) {
+    } else if (!valid_player(ent) || !is_alive(ent)) {
         /* If we don't want player chams, or this is not a player, stop */
         return false;
     }
+
+    const bool friendly = is_friend(ent);
+
+    if (friendly && !(setting & FRIEND_CHAMS))
+        /* Friendly ent but we dont want to render friends */
+        return false;
+    else if (!friendly && !(setting & ENEMY_CHAMS))
+        /* Not friendly ent and we dont want to render enemies */
+        return false;
 
     /* If we got here it means we are rendering a valid player */
     glDisable(GL_TEXTURE_2D);
 
     glDisable(GL_DEPTH_TEST); /* Ignore depth (walls between target) */
-    visible_mode = NOT_VISIBLE;
+    visible_mode = friendly ? FRIEND_NOT_VISIBLE : ENEMY_NOT_VISIBLE;
     i_studiomodelrenderer->StudioRenderFinal(this_ptr);
 
     glEnable(GL_DEPTH_TEST); /* Don't ignore depth, different color chams */
-    visible_mode = VISIBLE;
+    visible_mode = friendly ? FRIEND_VISIBLE : ENEMY_VISIBLE;
     i_studiomodelrenderer->StudioRenderFinal(this_ptr);
 
     /* Reset for future calls to glColor4f (from here or somewhere else) */

@@ -5,10 +5,12 @@
 #include "../include/sdk.h"
 
 enum visible_flags {
-    NONE        = 0,
-    VISIBLE     = 1,
-    NOT_VISIBLE = 2,
-    HANDS       = 3,
+    NONE               = 0,
+    ENEMY_VISIBLE      = 1,
+    ENEMY_NOT_VISIBLE  = 2,
+    FRIEND_VISIBLE     = 3,
+    FRIEND_NOT_VISIBLE = 4,
+    HANDS              = 5,
 };
 
 /*----------------------------------------------------------------------------*/

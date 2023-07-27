@@ -90,15 +90,25 @@ void h_glColor4f(GLfloat r, GLfloat g, GLfloat b, GLfloat a) {
      * Depending on the type of entity we are trying to render from there, and
      * depending on its visibility, we change this visible_mode variable. */
     switch (visible_mode) {
-        case VISIBLE:
+        case ENEMY_VISIBLE:
             r = 0.40f;
             g = 0.73f;
             b = 0.41f;
             break;
-        case NOT_VISIBLE:
+        case ENEMY_NOT_VISIBLE:
             r = 0.90f;
             g = 0.07f;
             b = 0.27f;
+            break;
+        case FRIEND_VISIBLE:
+            r = 0.16f;
+            g = 0.71f;
+            b = 0.96f;
+            break;
+        case FRIEND_NOT_VISIBLE:
+            r = 0.00f;
+            g = 0.53f;
+            b = 0.81f;
             break;
         case HANDS:
             /* Multiply by original func parameters for non-flat chams.
