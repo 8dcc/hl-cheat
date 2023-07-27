@@ -1,13 +1,13 @@
 
-
-#include "include/util.h"
-#include "include/sdk.h"
-#include "include/globals.h"
-
+#include <string.h>
 #include <math.h>
 #include <GL/gl.h>
 #include <unistd.h>   /* getpagesize */
 #include <sys/mman.h> /* mprotect */
+
+#include "include/util.h"
+#include "include/sdk.h"
+#include "include/globals.h"
 
 cl_entity_t* get_player(int ent_idx) {
     if (ent_idx < 0 || ent_idx > 32)
@@ -22,12 +22,20 @@ cl_entity_t* get_player(int ent_idx) {
 }
 
 bool is_alive(cl_entity_t* ent) {
+    /* TODO */
     return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
 }
 
 bool valid_player(cl_entity_t* ent) {
     return ent && ent->player && ent->index != localplayer->index &&
            ent->curstate.messagenum >= localplayer->curstate.messagenum;
+}
+
+bool is_friend(cl_entity_t* ent) {
+    /* TODO */
+
+    (void)ent;
+    return false;
 }
 
 char* get_name(int ent_idx) {

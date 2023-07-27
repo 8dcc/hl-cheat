@@ -26,6 +26,7 @@ typedef struct {
 cl_entity_t* get_player(int ent_idx);
 bool is_alive(cl_entity_t* ent);
 bool valid_player(cl_entity_t* ent);
+bool is_friend(cl_entity_t* ent);
 char* get_name(int ent_idx);
 vec3_t vec3(float x, float y, float z);
 bool vec_is_zero(vec3_t v);
