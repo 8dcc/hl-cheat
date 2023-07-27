@@ -32,10 +32,8 @@ bool valid_player(cl_entity_t* ent) {
 }
 
 bool is_friend(cl_entity_t* ent) {
-    /* TODO */
-
-    (void)ent;
-    return false;
+    return !strcmp(player_extra_info[ent->index].teamname,
+                   player_extra_info[localplayer->index].teamname);
 }
 
 char* get_name(int ent_idx) {
