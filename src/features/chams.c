@@ -41,11 +41,10 @@ bool chams(void* this_ptr) {
 
     const bool friendly = is_friend(ent);
 
-    if (friendly && !(setting & FRIEND_CHAMS))
-        /* Friendly ent but we dont want to render friends */
-        return false;
-    else if (!friendly && !(setting & ENEMY_CHAMS))
-        /* Not friendly ent and we dont want to render enemies */
+    /* Friendly ent but we dont want to render friends OR
+     * Not friendly ent and we dont want to render enemies*/
+    if ((friendly && !(setting & FRIEND_CHAMS)) ||
+        (!friendly && !(setting & ENEMY_CHAMS)))
         return false;
 
     /* If we got here it means we are rendering a valid player */
