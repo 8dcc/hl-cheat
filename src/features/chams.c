@@ -8,13 +8,10 @@
 
 enum chams_settings {
     DISABLED     = 0,
-    ENEMY_CHAMS  = 1,
-    FRIEND_CHAMS = 2,
-    /* ALL_PLAYER is 3, but we can OR player and hands */
-    HAND_CHAMS = 4,
-    /* ALL is 5, but we will convert it to 7 so every setting can be OR'd */
+    PLAYER_CHAMS = 1,
+    HAND_CHAMS   = 2,
+    /* ALL is 3, but we can OR player and hands */
 };
-
 visible_flags visible_mode;
 
 bool chams(void* this_ptr) {
@@ -34,18 +31,13 @@ bool chams(void* this_ptr) {
         visible_mode = NONE; /* Reset for future calls */
         glEnable(GL_TEXTURE_2D);
         return true;
-    } else if (!valid_player(ent) || !is_alive(ent)) {
+    } else if (!(setting & PLAYER_CHAMS) || !valid_player(ent) ||
+               !is_alive(ent)) {
         /* If we don't want player chams, or this is not a player, stop */
         return false;
     }
 
     const bool friendly = is_friend(ent);
-
-    /* Friendly ent but we dont want to render friends OR
-     * Not friendly ent and we dont want to render enemies*/
-    if ((friendly && !(setting & FRIEND_CHAMS)) ||
-        (!friendly && !(setting & ENEMY_CHAMS)))
-        return false;
 
     /* If we got here it means we are rendering a valid player */
     glDisable(GL_TEXTURE_2D);
