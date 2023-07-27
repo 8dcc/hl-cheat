@@ -13,7 +13,7 @@ enum esp_values {
     /* ESP_ALL should be 3 but we can just OR box and name */
 };
 
-static bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
+bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
     /*
      * Parameters:
      *   bw: 3d box width (game units)
@@ -68,6 +68,35 @@ static bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
     return true;
 }
 
+static bool gl_draw2dbox(vec3_t o, int bh) {
+    /* bh: 3d box height (game units) */
+
+    if (vec_is_zero(o))
+        return false;
+
+    const rgb_t col     = { 255, 255, 255 }; /* Color */
+    const rgb_t out_col = { 0, 0, 0 };       /* Outline */
+
+    /* Get top and bottom of player from origin with box height */
+    const vec3_t bot = vec3(o[0], o[1], o[2] - bh / 2);
+    const vec3_t top = vec3(o[0], o[1], o[2] + bh / 2);
+
+    vec2_t s_bot, s_top;
+    if (!world_to_screen(bot, s_bot) || !world_to_screen(top, s_top))
+        return false;
+
+    const int h = s_bot[1] - s_top[1];
+    const int w = bh == 70 ? h * 0.40f : h * 0.75f;
+    const int y = s_top[1];
+    const int x = s_top[0] - w / 2;
+
+    gl_drawbox(x - 1, y - 1, w + 2, h + 2, out_col); /* Outer outline */
+    gl_drawbox(x + 1, y + 1, w - 2, h - 2, out_col); /* Inner outline */
+    gl_drawbox(x, y, w, h, col);                     /* Fill */
+
+    return true;
+}
+
 void esp(void) {
     const int setting = (int)cv_esp->value;
     if (setting == ESP_OFF)
@@ -81,10 +110,10 @@ void esp(void) {
             continue;
 
         const int bh = (ent->curstate.usehull == 1) ? 44 : 70;
-        const int bw = 25;
+        /* const int bw = 25; */
 
         /* If ESP_BOX is enabled, draw it. If it returns false, continue */
-        if (setting & ESP_BOX && !gl_draw3dbox(ent->origin, bh, bw, 1))
+        if (setting & ESP_BOX && !gl_draw2dbox(ent->origin, bh))
             continue;
 
         /* Rest of the loop is for name esp, if var is not enabled, continue */
