@@ -12,6 +12,7 @@
  *
  * prefix | meaning
  * -------+-------------------------------
+ * h_*    | handler ptr (global scope)
  * i_*    | interface ptr (global scope)
  * o_*    | original interface (not a ptr)
  */
