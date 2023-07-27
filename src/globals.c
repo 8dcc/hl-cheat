@@ -26,15 +26,12 @@ bool globals_init(void) {
      *  RTLD_NOLOAD: Don't load the shared object.
      */
     hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
-
-    /* Make sure it's a valid handler */
     if (!hw) {
         printf("hl-cheat: globals_init: can't open hw.so\n");
         return false;
     }
 
     h_client = (void**)dlsym(hw, "hClientDLL");
-
     if (!h_client) {
         printf("hl-cheat: globals_init: can't find hClientDLL\n");
         return false;
