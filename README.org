@@ -23,6 +23,7 @@ Also make sure to check out [[https://github.com/deboogerxyz/ahc][deboogerxyz/ah
 | ESP        | =cv_esp=        | off/3d-box/name/all    |
 | Autostrafe | =sv_autostrafe= | off/rage/legit         |
 | Chams      | =cv_chams=      | off/players/hands/all* |
+| Crosshair  | =cv_crosshair=  | off/length             |
 
 #+begin_quote
 *Note:* Chams color can be changed from the =h_glColor4f()= function inside
