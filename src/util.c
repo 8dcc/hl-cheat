@@ -36,11 +36,25 @@ bool is_friend(cl_entity_t* ent) {
         return false;
 
     /* Check the current game because this method only works for some games */
-    if (this_game_id == CS || this_game_id == TF)
-        return player_extra_info[ent->index].teamnumber ==
-               player_extra_info[localplayer->index].teamnumber;
-    else
-        return false;
+    switch (this_game_id) {
+        case TF: {
+            extra_player_info_t* info = (extra_player_info_t*)player_extra_info;
+
+            return info[ent->index].teamnumber ==
+                   info[localplayer->index].teamnumber;
+        }
+        case CS: {
+            extra_player_info_cs_t* info =
+              (extra_player_info_cs_t*)player_extra_info;
+
+            return info[ent->index].teamnumber ==
+                   info[localplayer->index].teamnumber;
+        }
+        case HL:
+        case DOD:
+        default:
+            return false;
+    }
 }
 
 char* get_name(int ent_idx) {
