@@ -22,7 +22,7 @@ DECL_INTF(StudioModelRenderer_t, studiomodelrenderer);
 game_t* game_info;
 
 /* Array of extra_player_info's for each player */
-extra_player_info_t* player_extra_info;
+void* player_extra_info;
 
 /* Updated in CL_CreateMove hook */
 cl_entity_t* localplayer = NULL;
@@ -56,8 +56,7 @@ bool globals_init(void) {
     const char* SMR_STR   = "g_StudioRenderer"; /* For clang-format */
     i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(*h_client, SMR_STR);
 
-    const char* PEI_STR = "g_PlayerExtraInfo"; /* For clang-format */
-    player_extra_info   = (extra_player_info_t*)dlsym(*h_client, PEI_STR);
+    player_extra_info = dlsym(*h_client, "g_PlayerExtraInfo");
 
     game_info = *(game_t**)dlsym(hw, "game");
 

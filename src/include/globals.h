@@ -44,7 +44,7 @@ DECL_INTF_EXTERN(engine_studio_api_t, enginestudio);
 DECL_INTF_EXTERN(StudioModelRenderer_t, studiomodelrenderer);
 
 extern game_t* game_info;
-extern extra_player_info_t* player_extra_info;
+extern void* player_extra_info;
 extern cl_entity_t* localplayer;
 
 /*----------------------------------------------------------------------------*/
