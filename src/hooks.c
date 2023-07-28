@@ -23,12 +23,15 @@ DECL_HOOK(CL_Move);
 /*----------------------------------------------------------------------------*/
 
 bool hooks_init(void) {
+    /* VMT hooking */
     HOOK(i_client, CL_CreateMove);
     HOOK(i_client, HUD_Redraw);
     HOOK(i_studiomodelrenderer, StudioRenderModel);
 
+    /* OpenGL hooks */
     GL_HOOK(glColor4f);
 
+    /* Detour hooks */
     void* clmove_ptr = dlsym(hw, "CL_Move");
     if (!clmove_ptr)
         return false;
