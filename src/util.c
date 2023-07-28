@@ -93,15 +93,19 @@ game_id get_cur_game(void) {
 vec3_t vec3(float x, float y, float z) {
     vec3_t ret;
 
-    ret[0] = x;
-    ret[1] = y;
-    ret[2] = z;
+    ret.x = x;
+    ret.y = y;
+    ret.z = z;
 
     return ret;
 }
 
+vec3_t vec_add(vec3_t a, vec3_t b) {
+    return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
+}
+
 bool vec_is_zero(vec3_t v) {
-    return v[0] == 0.0f && v[1] == 0.0f && v[2] == 0.0f;
+    return v.x == 0.0f && v.y == 0.0f && v.z == 0.0f;
 }
 
 float vec_len2d(vec3_t v) {
@@ -109,9 +113,9 @@ float vec_len2d(vec3_t v) {
 }
 
 void vec_clamp(vec3_t v) {
-    v[0] = CLAMP(v[0], -89.0f, 89.0f);
-    v[1] = CLAMP(remainderf(v[1], 360.0f), -180.0f, 180.0f); /* v.y % 360 */
-    v[2] = CLAMP(v[2], -50.0f, 50.0f);
+    v.x = CLAMP(v.x, -89.0f, 89.0f);
+    v.y = CLAMP(remainderf(v.y, 360.0f), -180.0f, 180.0f); /* v.y % 360 */
+    v.z = CLAMP(v.z, -50.0f, 50.0f);
 }
 
 float angle_delta_rad(float a, float b) {

@@ -30,6 +30,7 @@ bool is_friend(cl_entity_t* ent);
 char* get_name(int ent_idx);
 game_id get_cur_game(void);
 vec3_t vec3(float x, float y, float z);
+vec3_t vec_add(vec3_t a, vec3_t b);
 bool vec_is_zero(vec3_t v);
 float vec_len2d(vec3_t v);
 void vec_clamp(vec3_t v);

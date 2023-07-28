@@ -36,14 +36,14 @@ bool gl_draw3dbox(vec3_t o, int bh, int bw, int lw) {
      *   |/ O|/     z(-)
      *   7---8
      */
-    vec3_t p1 = vec3(o[0] - bw / 2, o[1] + bw / 2, o[2] + bh / 2);
-    vec3_t p2 = vec3(o[0] + bw / 2, o[1] + bw / 2, o[2] + bh / 2);
-    vec3_t p3 = vec3(o[0] - bw / 2, o[1] - bw / 2, o[2] + bh / 2);
-    vec3_t p4 = vec3(o[0] + bw / 2, o[1] - bw / 2, o[2] + bh / 2);
-    vec3_t p5 = vec3(o[0] - bw / 2, o[1] + bw / 2, o[2] - bh / 2);
-    vec3_t p6 = vec3(o[0] + bw / 2, o[1] + bw / 2, o[2] - bh / 2);
-    vec3_t p7 = vec3(o[0] - bw / 2, o[1] - bw / 2, o[2] - bh / 2);
-    vec3_t p8 = vec3(o[0] + bw / 2, o[1] - bw / 2, o[2] - bh / 2);
+    vec3_t p1 = vec3(o.x - bw / 2, o.y + bw / 2, o.z + bh / 2);
+    vec3_t p2 = vec3(o.x + bw / 2, o.y + bw / 2, o.z + bh / 2);
+    vec3_t p3 = vec3(o.x - bw / 2, o.y - bw / 2, o.z + bh / 2);
+    vec3_t p4 = vec3(o.x + bw / 2, o.y - bw / 2, o.z + bh / 2);
+    vec3_t p5 = vec3(o.x - bw / 2, o.y + bw / 2, o.z - bh / 2);
+    vec3_t p6 = vec3(o.x + bw / 2, o.y + bw / 2, o.z - bh / 2);
+    vec3_t p7 = vec3(o.x - bw / 2, o.y - bw / 2, o.z - bh / 2);
+    vec3_t p8 = vec3(o.x + bw / 2, o.y - bw / 2, o.z - bh / 2);
 
     vec2_t s1, s2, s3, s4, s5, s6, s7, s8;
     if (!world_to_screen(p1, s1) || !world_to_screen(p2, s2) ||
@@ -78,8 +78,8 @@ static bool gl_draw2dbox(vec3_t o, int bh) {
     const rgb_t out_col = { 0, 0, 0 };       /* Outline */
 
     /* Get top and bottom of player from origin with box height */
-    const vec3_t bot = vec3(o[0], o[1], o[2] - bh / 2);
-    const vec3_t top = vec3(o[0], o[1], o[2] + bh / 2);
+    const vec3_t bot = vec3(o.x, o.y, o.z - bh / 2);
+    const vec3_t top = vec3(o.x, o.y, o.z + bh / 2);
 
     vec2_t s_bot, s_top;
     if (!world_to_screen(bot, s_bot) || !world_to_screen(top, s_top))
@@ -121,7 +121,7 @@ void esp(void) {
             continue;
 
         /* Draw name on top of the player. */
-        vec3_t top = vec3(ent->origin[0], ent->origin[1], ent->origin[2] + bh);
+        vec3_t top = vec3(ent->origin.x, ent->origin.y, ent->origin.z + bh);
         vec2_t s_top;
 
         if (!world_to_screen(top, s_top))

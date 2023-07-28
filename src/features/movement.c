@@ -53,8 +53,8 @@ static void autostrafe_rage(usercmd_t* cmd) {
     i_engine->GetViewAngles(viewangles);
 
     /* Get our desired angles and delta */
-    float yaw        = DEG2RAD(viewangles[1]);
-    float vel_dir    = atan2f(i_pmove->velocity[1], i_pmove->velocity[0]) - yaw;
+    float yaw        = DEG2RAD(viewangles.y);
+    float vel_dir    = atan2f(i_pmove->velocity.y, i_pmove->velocity.x) - yaw;
     float target_ang = atan2f(-cmd->sidemove, cmd->forwardmove);
     float delta      = angle_delta_rad(vel_dir, target_ang);
 
@@ -101,8 +101,8 @@ void bhop(usercmd_t* cmd) {
  *   https://github.com/deboogerxyz/ahc/blob/0492646e28dd7234a8cd431d37b152dc18a21b04/ahc.c#L377
  */
 void correct_movement(usercmd_t* cmd, vec3_t old_angles) {
-    float old_y = old_angles[1] + (old_angles[1] < 0 ? 360 : 0);
-    float new_y = cmd->viewangles[1] + (cmd->viewangles[1] < 0 ? 360 : 0);
+    float old_y = old_angles.y + (old_angles.y < 0 ? 360 : 0);
+    float new_y = cmd->viewangles.y + (cmd->viewangles.y < 0 ? 360 : 0);
     float delta = (new_y < old_y) ? fabsf(new_y - old_y)
                                   : 360 - fabsf(new_y - old_y);
 
