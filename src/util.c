@@ -22,8 +22,7 @@ cl_entity_t* get_player(int ent_idx) {
 }
 
 bool is_alive(cl_entity_t* ent) {
-    /* TODO */
-    return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
+    return ent && !player_extra_info[ent->index].dead;
 }
 
 bool valid_player(cl_entity_t* ent) {
@@ -32,8 +31,8 @@ bool valid_player(cl_entity_t* ent) {
 }
 
 bool is_friend(cl_entity_t* ent) {
-    return !strcmp(player_extra_info[ent->index].teamname,
-                   player_extra_info[localplayer->index].teamname);
+    return ent && !strcmp(player_extra_info[ent->index].teamname,
+                          player_extra_info[localplayer->index].teamname);
 }
 
 char* get_name(int ent_idx) {
