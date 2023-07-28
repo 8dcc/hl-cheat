@@ -1,6 +1,8 @@
 #ifndef SDK_H_
 #define SDK_H_
 
+#include <stdint.h>
+
 /*
  * cl_enginefunc_t:
  *   sdk/cl_dll/cl_dll.h:40 -> sdk/engine/cdll_int.h:164 ---+
@@ -320,17 +322,36 @@ typedef struct {
 } game_t;
 
 /* sdk/cl_dll/hud.h */
-#ifndef MAX_TEAM_NAME
-#define MAX_TEAM_NAME 16
-#endif
 typedef struct {
-    short frags;
-    short deaths;
-    short playerclass;
-    short health; /* UNUSED */
+    int16_t frags;
+    int16_t deaths;
+    int16_t playerclass;
+    int16_t health; /* UNUSED */
     bool dead;
-    short teamnumber;
-    char teamname[MAX_TEAM_NAME];
-} extra_player_info_t;
+    int16_t teamnumber;
+    char teamname[16];
+} extra_player_info_t; /* hl1, tfc */
+
+typedef struct {
+    int16_t frags;
+    int16_t deaths;
+    int16_t team_id;
+    int32_t has_c4;
+    int32_t vip;
+    vec3_t origin;
+    int32_t radarflash;
+    int32_t radarflashon;
+    int32_t radarflashes;
+    int16_t playerclass;
+    int16_t teamnumber;
+    char teamname[16];
+    bool dead;
+    int32_t showhealth;
+    int32_t health;
+    char location[32];
+    int32_t sb_health;
+    int32_t sb_account;
+    int32_t has_defuse_kit;
+} extra_player_info_cs_t; /* cstrike */
 
 #endif /* SDK_H_ */
