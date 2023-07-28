@@ -50,8 +50,14 @@ bool is_friend(cl_entity_t* ent) {
             return info[ent->index].teamnumber ==
                    info[localplayer->index].teamnumber;
         }
+        case DOD: {
+            extra_player_info_dod_t* info =
+              (extra_player_info_dod_t*)player_extra_info;
+
+            return info[ent->index].teamnumber ==
+                   info[localplayer->index].teamnumber;
+        }
         case HL:
-        case DOD:
         default:
             return false;
     }
