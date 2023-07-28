@@ -292,7 +292,7 @@ typedef struct StudioModelRenderer_s {
     */
 } StudioModelRenderer_t;
 
-/* Credits: @oixKKK */
+/* Credits: @oxiKKK */
 typedef struct {
     void* vtbl;
     bool m_bActiveApp;
