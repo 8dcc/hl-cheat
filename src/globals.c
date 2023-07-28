@@ -8,6 +8,8 @@
 #include "include/sdk.h"
 #include "include/util.h"
 
+enum game_id this_game_id = HL;
+
 void* hw;
 void** h_client;
 DECL_INTF(cl_enginefunc_t, engine);
@@ -19,8 +21,13 @@ DECL_INTF(StudioModelRenderer_t, studiomodelrenderer);
 /* Game struct with some useful info */
 game_t* game_info;
 
+/* Array of extra_player_info's for each player */
+extra_player_info_t* player_extra_info;
+
 /* Updated in CL_CreateMove hook */
 cl_entity_t* localplayer = NULL;
+
+/*----------------------------------------------------------------------------*/
 
 bool globals_init(void) {
     /*
@@ -48,6 +55,9 @@ bool globals_init(void) {
 
     const char* SMR_STR   = "g_StudioRenderer"; /* For clang-format */
     i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(*h_client, SMR_STR);
+
+    const char* PEI_STR = "g_PlayerExtraInfo"; /* For clang-format */
+    player_extra_info   = (extra_player_info_t*)dlsym(*h_client, PEI_STR);
 
     game_info = *(game_t**)dlsym(hw, "game");
 

@@ -28,6 +28,7 @@ bool is_alive(cl_entity_t* ent);
 bool valid_player(cl_entity_t* ent);
 bool is_friend(cl_entity_t* ent);
 char* get_name(int ent_idx);
+game_id get_cur_game(void);
 vec3_t vec3(float x, float y, float z);
 bool vec_is_zero(vec3_t v);
 float vec_len2d(vec3_t v);

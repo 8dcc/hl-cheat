@@ -91,12 +91,15 @@
 bool hooks_init(void);
 void hooks_restore(void);
 
+/* VMT hooks */
 DECL_HOOK_EXTERN(void, CL_CreateMove, float, usercmd_t*, int);
 DECL_HOOK_EXTERN(int, HUD_Redraw, float, int);
-DECL_HOOK_EXTERN(void, StudioRenderModel, void* this_ptr);
+DECL_HOOK_EXTERN(void, StudioRenderModel, void*);
 
-DECL_HOOK_EXTERN(void, glColor4f, GLfloat r, GLfloat g, GLfloat b, GLfloat a);
+/* OpenGL hooks */
+DECL_HOOK_EXTERN(void, glColor4f, GLfloat, GLfloat, GLfloat, GLfloat);
 
+/* Detour hooks */
 DECL_HOOK_EXTERN(void, CL_Move);
 
 #endif /* HOOKS_H_ */

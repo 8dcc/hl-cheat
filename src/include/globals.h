@@ -4,6 +4,13 @@
 
 #include "sdk.h"
 
+enum game_id {
+    HL  = 0, /* Half-Life 1 */
+    CS  = 1, /* Counter-Strike 1.6 */
+    TF  = 2, /* Team Fortress Classic */
+    DOD = 3, /* Day of Defeat */
+};
+
 /*----------------------------------------------------------------------------*/
 
 /*
@@ -26,6 +33,8 @@
 
 /*----------------------------------------------------------------------------*/
 
+extern game_id this_game_id;
+
 extern void* hw;
 extern void** h_client; /* hClientDLL hander */
 DECL_INTF_EXTERN(cl_enginefunc_t, engine);
@@ -35,6 +44,7 @@ DECL_INTF_EXTERN(engine_studio_api_t, enginestudio);
 DECL_INTF_EXTERN(StudioModelRenderer_t, studiomodelrenderer);
 
 extern game_t* game_info;
+extern extra_player_info_t* player_extra_info;
 extern cl_entity_t* localplayer;
 
 /*----------------------------------------------------------------------------*/
