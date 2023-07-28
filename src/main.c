@@ -7,6 +7,7 @@
 #include "include/globals.h"
 #include "include/cvars.h"
 #include "include/hooks.h"
+#include "include/util.h"
 
 static bool loaded = false;
 
@@ -34,6 +35,9 @@ void load(void) {
         self_unload();
         return;
     }
+
+    /* Get game version after injecting */
+    this_game_id = get_cur_game();
 
     i_engine->pfnClientCmd("echo \"hl-cheat loaded successfully!\"");
 
