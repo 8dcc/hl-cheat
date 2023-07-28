@@ -2,6 +2,7 @@
 #include <string.h>
 #include <math.h>
 #include <GL/gl.h>
+#include <dlfcn.h>    /* dlsym */
 #include <unistd.h>   /* getpagesize */
 #include <sys/mman.h> /* mprotect */
 
@@ -22,7 +23,7 @@ cl_entity_t* get_player(int ent_idx) {
 }
 
 bool is_alive(cl_entity_t* ent) {
-    return ent && !player_extra_info[ent->index].dead;
+    return ent && ent->curstate.movetype != 6 && ent->curstate.movetype != 0;
 }
 
 bool valid_player(cl_entity_t* ent) {
@@ -31,8 +32,15 @@ bool valid_player(cl_entity_t* ent) {
 }
 
 bool is_friend(cl_entity_t* ent) {
-    return ent && !strcmp(player_extra_info[ent->index].teamname,
-                          player_extra_info[localplayer->index].teamname);
+    if (!ent)
+        return false;
+
+    /* Check the current game because this method only works for some games */
+    if (this_game_id == CS || this_game_id == TF)
+        return player_extra_info[ent->index].teamnumber ==
+               player_extra_info[localplayer->index].teamnumber;
+    else
+        return false;
 }
 
 char* get_name(int ent_idx) {
@@ -40,6 +48,26 @@ char* get_name(int ent_idx) {
     i_engine->pfnGetPlayerInfo(ent_idx, &info);
 
     return info.name;
+}
+
+game_id get_cur_game(void) {
+    typedef void (*COM_ParseDirectoryFromCmd_t)(const char*, char*, int,
+                                                const char*);
+    COM_ParseDirectoryFromCmd_t COM_ParseDirectoryFromCmd =
+      (COM_ParseDirectoryFromCmd_t)dlsym(hw, "COM_ParseDirectoryFromCmd");
+
+    char game[FILENAME_MAX];
+    COM_ParseDirectoryFromCmd("-game", game, sizeof(game), "valve");
+
+    /* Get the current game we are playing */
+    if (game[0] == 'c' && game[1] == 's') /* cstrike */
+        return CS;
+    else if (*game == 'd') /* dod */
+        return DOD;
+    else if (*game == 't') /* tfc */
+        return TF;
+    else
+        return HL;
 }
 
 vec3_t vec3(float x, float y, float z) {
