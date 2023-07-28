@@ -32,6 +32,9 @@
 /* engine_studio_api_t */
 #include "sdk/common/r_studioint.h"
 
+typedef float matrix_3x4[3][4];
+typedef matrix_3x4 bone_matrix[128];
+
 /*
  * Credits:
  *   https://github.com/UnkwUsr/hlhax/blob/26491984996c8389efec977ed940c5a67a0ecca4/src/sdk.h#L45
