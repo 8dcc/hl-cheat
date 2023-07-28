@@ -354,4 +354,18 @@ typedef struct {
     int32_t has_defuse_kit;
 } extra_player_info_cs_t; /* cstrike */
 
+typedef struct {
+    int16_t frags;
+    int16_t objscore;
+    int16_t deaths;
+    int16_t playerclass;
+    int16_t teamnumber;
+    int32_t status;
+    char teamname[16];
+    int32_t showhealth;
+    int32_t health;
+    int32_t teamId;
+    bool dead;
+} extra_player_info_dod_t; /* dod */
+
 #endif /* SDK_H_ */
