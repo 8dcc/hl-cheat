@@ -100,6 +100,12 @@ vec3_t vec3(float x, float y, float z) {
     return ret;
 }
 
+void vec_copy(vec3_t* dst, const vec3_t* src) {
+    dst->x = src->x;
+    dst->y = src->y;
+    dst->z = src->z;
+}
+
 vec3_t vec_add(vec3_t a, vec3_t b) {
     return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
@@ -127,6 +133,16 @@ float angle_delta_rad(float a, float b) {
         delta += M_PI * 2;
 
     return delta;
+}
+
+vec3_t matrix_3x4_origin(matrix_3x4 m) {
+    vec3_t ret;
+
+    ret.x = m[0][3];
+    ret.y = m[1][3];
+    ret.z = m[2][3];
+
+    return ret;
 }
 
 bool world_to_screen(vec3_t vec, vec2_t screen) {
