@@ -8,6 +8,8 @@
 #include "include/sdk.h"
 #include "include/util.h"
 
+enum game_id this_game_id = HL;
+
 void* hw;
 void** h_client;
 DECL_INTF(cl_enginefunc_t, engine);
@@ -24,6 +26,8 @@ extra_player_info_t* player_extra_info;
 
 /* Updated in CL_CreateMove hook */
 cl_entity_t* localplayer = NULL;
+
+/*----------------------------------------------------------------------------*/
 
 bool globals_init(void) {
     /*

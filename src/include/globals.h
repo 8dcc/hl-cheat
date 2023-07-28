@@ -4,6 +4,13 @@
 
 #include "sdk.h"
 
+enum game_id {
+    HL  = 0, /* Half-Life 1 */
+    CS  = 1, /* Counter-Strike 1.6 */
+    TF  = 2, /* Team Fortress Classic */
+    DOD = 3, /* Day of Defeat */
+};
+
 /*----------------------------------------------------------------------------*/
 
 /*
@@ -25,6 +32,8 @@
     extern type o_##name;
 
 /*----------------------------------------------------------------------------*/
+
+extern game_id this_game_id;
 
 extern void* hw;
 extern void** h_client; /* hClientDLL hander */
