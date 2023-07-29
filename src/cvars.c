@@ -5,6 +5,7 @@
 
 DECL_CVAR(bhop);
 DECL_CVAR(autostrafe);
+DECL_CVAR(aimbot);
 DECL_CVAR(esp);
 DECL_CVAR(chams);
 DECL_CVAR(crosshair);
@@ -13,6 +14,7 @@ DECL_CVAR(clmove);
 bool cvars_init(void) {
     cv_bhop       = REGISTER_CVAR("bhop", "1");
     cv_autostrafe = REGISTER_CVAR("autostrafe", "0");
+    cv_aimbot     = REGISTER_CVAR("aimbot", "1");
     cv_esp        = REGISTER_CVAR("esp", "3");
     cv_chams      = REGISTER_CVAR("chams", "1");
     cv_crosshair  = REGISTER_CVAR("crosshair", "0");
