@@ -26,7 +26,7 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
     for (int i = 1; i <= i_engine->GetMaxClients(); i++) {
         cl_entity_t* ent = get_player(i);
 
-        if (!valid_player(ent) || !is_alive(ent) || is_friend(ent))
+        if (!is_alive(ent) || is_friend(ent))
             continue;
 
         /* TODO: Get bones origin */
