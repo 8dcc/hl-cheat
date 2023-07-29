@@ -11,6 +11,9 @@
 #include "sdk/cl_dll/wrect.h"
 #include "sdk/cl_dll/cl_dll.h"
 
+/* event_api_s */
+#include "sdk/common/event_api.h"
+
 /* usercmd_t */
 #include "sdk/common/usercmd.h"
 
