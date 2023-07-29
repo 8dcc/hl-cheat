@@ -100,18 +100,24 @@ vec3_t vec3(float x, float y, float z) {
     return ret;
 }
 
-void vec_copy(vec3_t* dst, const vec3_t* src) {
-    dst->x = src->x;
-    dst->y = src->y;
-    dst->z = src->z;
-}
-
 vec3_t vec_add(vec3_t a, vec3_t b) {
-    return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
+    vec3_t ret;
+
+    ret.x = a.x + b.x;
+    ret.y = a.y + b.y;
+    ret.z = a.z + b.z;
+
+    return ret;
 }
 
 vec3_t vec_sub(vec3_t a, vec3_t b) {
-    return vec3(a.x - b.x, a.y - b.y, a.z - b.z);
+    vec3_t ret;
+
+    ret.x = a.x - b.x;
+    ret.y = a.y - b.y;
+    ret.z = a.z - b.z;
+
+    return ret;
 }
 
 bool vec_is_zero(vec3_t v) {

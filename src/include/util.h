@@ -22,6 +22,11 @@ typedef struct {
 #define gl_drawline_points(p0, p1, w, col) \
     gl_drawline(p0[0], p0[1], p1[0], p1[1], w, col);
 
+#define vec_copy(dst, src) \
+    dst.x = src.x;         \
+    dst.y = src.y;         \
+    dst.z = src.z;
+
 /*----------------------------------------------------------------------------*/
 
 cl_entity_t* get_player(int ent_idx);
@@ -31,7 +36,6 @@ bool is_friend(cl_entity_t* ent);
 char* get_name(int ent_idx);
 game_id get_cur_game(void);
 vec3_t vec3(float x, float y, float z);
-void vec_copy(vec3_t* dst, const vec3_t* src);
 vec3_t vec_add(vec3_t a, vec3_t b);
 vec3_t vec_sub(vec3_t a, vec3_t b);
 bool vec_is_zero(vec3_t v);
