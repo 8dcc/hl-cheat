@@ -110,6 +110,10 @@ vec3_t vec_add(vec3_t a, vec3_t b) {
     return vec3(a.x + b.x, a.y + b.y, a.z + b.z);
 }
 
+vec3_t vec_sub(vec3_t a, vec3_t b) {
+    return vec3(a.x - b.x, a.y - b.y, a.z - b.z);
+}
+
 bool vec_is_zero(vec3_t v) {
     return v.x == 0.0f && v.y == 0.0f && v.z == 0.0f;
 }
@@ -124,6 +128,12 @@ void vec_clamp(vec3_t v) {
     v.z = CLAMP(v.z, -50.0f, 50.0f);
 }
 
+void vec_norm(vec3_t v) {
+    v.x = isfinite(v.x) ? remainderf(v.x, 360.0f) : 0.0f;
+    v.y = isfinite(v.y) ? remainderf(v.y, 360.0f) : 0.0f;
+    v.z = 0.0f;
+}
+
 float angle_delta_rad(float a, float b) {
     float delta = isfinite(a - b) ? remainder(a - b, 360) : 0;
 
@@ -133,6 +143,16 @@ float angle_delta_rad(float a, float b) {
         delta += M_PI * 2;
 
     return delta;
+}
+
+vec3_t vec_to_ang(vec3_t v) {
+    vec3_t ret;
+
+    ret.x = RAD2DEG(atan2(-v.z, hypot(v.x, v.y)));
+    ret.y = RAD2DEG(atan2(v.y, v.x));
+    ret.z = 0.0f;
+
+    return ret;
 }
 
 vec3_t matrix_3x4_origin(matrix_3x4 m) {

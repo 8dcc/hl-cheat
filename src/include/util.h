@@ -14,7 +14,8 @@ typedef struct {
     uint8_t r, g, b;
 } rgb_t;
 
-#define DEG2RAD(n) ((n)*M_PI / 180.0)
+#define DEG2RAD(n) ((n)*M_PI / 180.0f)
+#define RAD2DEG(n) ((n)*180.0f / M_PI)
 #define CLAMP(val, min, max) \
     (((val) > (max)) ? (max) : (((val) < (min)) ? (min) : (val)))
 
@@ -32,10 +33,13 @@ game_id get_cur_game(void);
 vec3_t vec3(float x, float y, float z);
 void vec_copy(vec3_t* dst, const vec3_t* src);
 vec3_t vec_add(vec3_t a, vec3_t b);
+vec3_t vec_sub(vec3_t a, vec3_t b);
 bool vec_is_zero(vec3_t v);
 float vec_len2d(vec3_t v);
 void vec_clamp(vec3_t v);
+void vec_norm(vec3_t v);
 float angle_delta_rad(float a, float b);
+vec3_t vec_to_ang(vec3_t v);
 vec3_t matrix_3x4_origin(matrix_3x4 m);
 bool world_to_screen(vec3_t vec, vec2_t screen);
 void engine_draw_text(int x, int y, char* s, rgb_t c);
