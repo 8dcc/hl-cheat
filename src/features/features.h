@@ -26,6 +26,9 @@ void correct_movement(usercmd_t* cmd, vec3_t old_angles);
 extern visible_flags visible_mode;
 bool chams(void* this_ptr);
 
+/* src/features/aim.c */
+void aimbot(usercmd_t* cmd);
+
 /* src/features/misc.c */
 void custom_crosshair(void);
 

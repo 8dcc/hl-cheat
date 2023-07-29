@@ -14,7 +14,7 @@ DECL_CVAR(clmove);
 bool cvars_init(void) {
     REGISTER_CVAR(bhop, 1);
     REGISTER_CVAR(autostrafe, 0);
-    REGISTER_CVAR(aimbot, 1);
+    REGISTER_CVAR(aimbot, 0);
     REGISTER_CVAR(esp, 3);
     REGISTER_CVAR(chams, 1);
     REGISTER_CVAR(crosshair, 0);
