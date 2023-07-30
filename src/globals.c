@@ -10,6 +10,9 @@
 
 enum game_id this_game_id = HL;
 
+/* Bone origins of each player, updated in studiorendermodel */
+vec3_t g_bones[64][128];
+
 void* hw;
 void** h_client;
 DECL_INTF(cl_enginefunc_t, engine);

@@ -81,6 +81,14 @@ int h_HUD_Redraw(float time, int intermission) {
 /*----------------------------------------------------------------------------*/
 
 void h_StudioRenderModel(void* this_ptr) {
+    /* Update bones array */
+    cl_entity_t* ent = i_enginestudio->GetCurrentEntity();
+    bone_matrix* mat = (bone_matrix*)i_enginestudio->StudioGetBoneTransform();
+    for (int i = 0; i < 128; i++) {
+        const vec3_t bone_orig = matrix_3x4_origin((*mat)[i]);
+        vec_copy(g_bones[ent->index][i], bone_orig);
+    }
+
     if (!chams(this_ptr))
         ORIGINAL(StudioRenderModel, this_ptr);
 }
