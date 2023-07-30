@@ -9,11 +9,18 @@
 /* Game units to add to the entity origin to get the head */
 #define HEAD_OFFSET 0.8f
 
+/* Scale factor for aim punch */
+#define AIM_PUNCH_MULT 2
+
 static vec3_t get_closest_delta(vec3_t viewangles) {
+    /* Compensate aim punch. We get g_punchAngles from CalcRefdef hook */
+    viewangles.x += g_punchAngles.x * AIM_PUNCH_MULT;
+    viewangles.y += g_punchAngles.y * AIM_PUNCH_MULT;
+    viewangles.z += g_punchAngles.z * AIM_PUNCH_MULT;
+
     vec3_t view_height;
     i_engine->pEventAPI->EV_LocalPlayerViewheight(view_height);
     vec3_t local_eyes = vec_add(localplayer->origin, view_height);
-    /* TODO: Compensate aim punch */
 
     /* These 2 vars are used to store the best target across iterations.
      * NOTE: The default value of best_fov will be the aimbot fov */
