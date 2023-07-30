@@ -22,10 +22,11 @@ typedef struct {
 #define gl_drawline_points(p0, p1, w, col) \
     gl_drawline(p0[0], p0[1], p1[0], p1[1], w, col);
 
+/* Use indexes so it works for float[] as well as vec3_t */
 #define vec_copy(dst, src) \
-    dst.x = src.x;         \
-    dst.y = src.y;         \
-    dst.z = src.z;
+    dst[0] = src[0];       \
+    dst[1] = src[1];       \
+    dst[2] = src[2];
 
 /*----------------------------------------------------------------------------*/
 
