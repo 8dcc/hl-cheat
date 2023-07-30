@@ -12,6 +12,24 @@
 /* Scale factor for aim punch */
 #define AIM_PUNCH_MULT 2
 
+static bool is_visible(vec3_t start, vec3_t end) {
+    /* Syntax: PM_TraceLine(start, end, flags, usehulll, ignore_pe); */
+    pmtrace_t* tr =
+      i_engine->PM_TraceLine(start, end, PM_TRACELINE_PHYSENTSONLY, 2, -1);
+
+    /* We didn't hit a valid entity */
+    if (tr->ent <= 0)
+        return false;
+
+    /* Get entity index from physents, check if we can't get a valid player */
+    const int ent_idx = i_pmove->physents[tr->ent].info;
+    if (!get_player(ent_idx))
+        return false;
+
+    /* We hit a valid player */
+    return true;
+}
+
 static vec3_t get_closest_delta(vec3_t viewangles) {
     /* Compensate aim punch. We get g_punchAngles from CalcRefdef hook */
     viewangles.x += g_punchAngles.x * AIM_PUNCH_MULT;
@@ -35,9 +53,11 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
 
         /* TODO: Get bones origin instead of calculating from ent origin */
         const vec3_t head_pos = vec_add(ent->origin, vec3(0, 0, HEAD_OFFSET));
-        const vec3_t enemy_angle = vec_to_ang(vec_sub(head_pos, local_eyes));
+        if (!is_visible(local_eyes, head_pos)) /* We can't see player */
+            continue;
 
-        const vec3_t delta = vec_sub(enemy_angle, viewangles);
+        const vec3_t enemy_angle = vec_to_ang(vec_sub(head_pos, local_eyes));
+        const vec3_t delta       = vec_sub(enemy_angle, viewangles);
         vec_norm(delta);
 
         float fov = hypotf(delta.x, delta.y);
