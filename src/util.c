@@ -135,8 +135,8 @@ void vec_clamp(vec3_t v) {
 }
 
 void vec_norm(vec3_t v) {
-    v.x = isfinite(v.x) ? remainderf(v.x, 360.0f) : 0.0f;
-    v.y = isfinite(v.y) ? remainderf(v.y, 360.0f) : 0.0f;
+    v.x = isfinite(v.x) ? remainder(v.x, 360) : 0;
+    v.y = isfinite(v.y) ? remainder(v.y, 360) : 0;
     v.z = 0.0f;
 }
 
