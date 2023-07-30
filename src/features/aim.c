@@ -6,11 +6,8 @@
 #include "../include/cvars.h"
 #include "../include/util.h"
 
-enum aimbot_settings {
-    OFF           = 0,
-    CLOSEST       = 1,
-    LOWEST_HEALTH = 2, /* TODO */
-};
+/* Game units to add to the entity origin to get the head */
+#define HEAD_OFFSET 0.8f
 
 static vec3_t get_closest_delta(vec3_t viewangles) {
     vec3_t view_height;
@@ -19,8 +16,8 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
     /* TODO: Compensate aim punch */
 
     /* These 2 vars are used to store the best target across iterations.
-     * NOTE: The default value of best_fov is the aimbot fov */
-    float best_fov    = 5.0f;
+     * NOTE: The default value of best_fov will be the aimbot fov */
+    float best_fov    = cv_aimbot->value;
     vec3_t best_delta = { 0, 0, 0 };
 
     for (int i = 1; i <= i_engine->GetMaxClients(); i++) {
@@ -29,14 +26,19 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
         if (!is_alive(ent) || is_friend(ent))
             continue;
 
-        /* TODO: Get bones origin */
-        const vec3_t head_pos    = vec_add(ent->origin, vec3(0, 0, 0.6f));
+        /* TODO: Get bones origin instead of calculating from ent origin */
+        const vec3_t head_pos = vec_add(ent->origin, vec3(0, 0, HEAD_OFFSET));
         const vec3_t enemy_angle = vec_to_ang(vec_sub(head_pos, local_eyes));
 
         const vec3_t delta = vec_sub(enemy_angle, viewangles);
         vec_norm(delta);
 
-        const float fov = hypotf(delta.x, delta.y);
+        float fov = hypotf(delta.x, delta.y);
+        if (fov > 360.0f) {
+            fov = remainderf(fov, 360.0f);
+            if (fov > 180.0f)
+                fov = 360.0f - fov;
+        }
 
         if (fov < best_fov) {
             best_fov = fov;
@@ -48,14 +50,14 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
 }
 
 void aimbot(usercmd_t* cmd) {
-    const int setting = cv_aimbot->value;
-    if (setting == OFF || !(cmd->buttons & IN_ATTACK))
+    if (!CVAR_ON(aimbot) || !(cmd->buttons & IN_ATTACK))
         return;
 
     /* Calculate delta with the engine viewangles, not with the cmd ones */
     vec3_t engine_viewangles;
     i_engine->GetViewAngles(engine_viewangles);
 
+    /* TODO: Add setting for lowest health */
     vec3_t best_delta = get_closest_delta(engine_viewangles);
     if (!vec_is_zero(best_delta)) {
         /* NOTE: We can divide the best delta here to add smoothing */
@@ -66,4 +68,7 @@ void aimbot(usercmd_t* cmd) {
     }
 
     vec_copy(cmd->viewangles, engine_viewangles);
+
+    /* NOTE: Uncomment to disable silent aim */
+    /* i_engine->SetViewAngles(engine_viewangles); */
 }
