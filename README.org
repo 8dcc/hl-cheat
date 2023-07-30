@@ -20,10 +20,16 @@ Also make sure to check out [[https://github.com/deboogerxyz/ahc][deboogerxyz/ah
 | Feature    | Command       | Values (0..n)          |
 |------------+---------------+------------------------|
 | Bhop       | =cv_bhop=       | off/on                 |
+| Autostrafe | =cv_autostrafe= | off/rage/legit         |
+| Aimbot     | =cv_aimbot=     | off/fov*               |
 | ESP        | =cv_esp=        | off/3d-box/name/all    |
-| Autostrafe | =sv_autostrafe= | off/rage/legit         |
 | Chams      | =cv_chams=      | off/players/hands/all* |
 | Crosshair  | =cv_crosshair=  | off/length             |
+
+
+#+begin_quote
+*Note:* Aimbot FOV goes from 0 (off) to 180 (all enemies)
+#+end_quote
 
 #+begin_quote
 *Note:* Chams color can be changed from the =h_glColor4f()= function inside
