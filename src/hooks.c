@@ -11,6 +11,7 @@
 DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
 DECL_HOOK(StudioRenderModel);
+DECL_HOOK(CalcRefdef);
 
 /* OpenGL hooks */
 DECL_HOOK(glColor4f);
@@ -27,6 +28,7 @@ bool hooks_init(void) {
     HOOK(i_client, CL_CreateMove);
     HOOK(i_client, HUD_Redraw);
     HOOK(i_studiomodelrenderer, StudioRenderModel);
+    HOOK(i_client, CalcRefdef);
 
     /* OpenGL hooks */
     GL_HOOK(glColor4f);
@@ -83,6 +85,13 @@ int h_HUD_Redraw(float time, int intermission) {
 void h_StudioRenderModel(void* this_ptr) {
     if (!chams(this_ptr))
         ORIGINAL(StudioRenderModel, this_ptr);
+}
+
+void h_CalcRefdef(ref_params_t* params) {
+    /* Store punch angles for CreateMove */
+    vec_copy(g_punchAngles, params->punchangle);
+
+    ORIGINAL(CalcRefdef, params);
 }
 
 /*----------------------------------------------------------------------------*/

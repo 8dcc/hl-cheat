@@ -95,6 +95,7 @@ void hooks_restore(void);
 DECL_HOOK_EXTERN(void, CL_CreateMove, float, usercmd_t*, int);
 DECL_HOOK_EXTERN(int, HUD_Redraw, float, int);
 DECL_HOOK_EXTERN(void, StudioRenderModel, void*);
+DECL_HOOK_EXTERN(void, CalcRefdef, ref_params_t*);
 
 /* OpenGL hooks */
 DECL_HOOK_EXTERN(void, glColor4f, GLfloat, GLfloat, GLfloat, GLfloat);

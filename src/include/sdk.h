@@ -62,7 +62,7 @@ typedef struct cl_clientfuncs_s {
     void (*CL_CameraOffset)(float* ofs);
     struct kbutton_s* (*KB_Find)(const char* name);
     void (*CAM_Think)(void);
-    void (*V_CalcRefdef)(struct ref_params_s* pparams);
+    void (*CalcRefdef)(struct ref_params_s* pparams);
     int (*HUD_AddEntity)(int type, struct cl_entity_s* ent,
                          const char* modelname);
 
