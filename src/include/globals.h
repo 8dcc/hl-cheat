@@ -34,6 +34,7 @@ enum game_id {
 /*----------------------------------------------------------------------------*/
 
 extern game_id this_game_id;
+extern vec3_t g_punchAngles;
 
 extern void* hw;
 extern void** h_client; /* hClientDLL hander */

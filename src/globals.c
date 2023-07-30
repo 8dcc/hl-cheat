@@ -8,7 +8,8 @@
 #include "include/sdk.h"
 #include "include/util.h"
 
-enum game_id this_game_id = HL;
+game_id this_game_id = HL;
+vec3_t g_punchAngles = { 0, 0, 0 };
 
 void* hw;
 void** h_client;
