@@ -36,6 +36,7 @@ DECL_CVAR_EXTERN(aimbot);
 DECL_CVAR_EXTERN(esp);
 DECL_CVAR_EXTERN(chams);
 DECL_CVAR_EXTERN(crosshair);
+DECL_CVAR_EXTERN(tracers);
 DECL_CVAR_EXTERN(clmove);
 
 /*----------------------------------------------------------------------------*/

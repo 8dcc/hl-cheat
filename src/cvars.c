@@ -9,6 +9,7 @@ DECL_CVAR(aimbot);
 DECL_CVAR(esp);
 DECL_CVAR(chams);
 DECL_CVAR(crosshair);
+DECL_CVAR(tracers);
 DECL_CVAR(clmove);
 
 bool cvars_init(void) {
@@ -18,6 +19,7 @@ bool cvars_init(void) {
     REGISTER_CVAR(esp, 3);
     REGISTER_CVAR(chams, 1);
     REGISTER_CVAR(crosshair, 0);
+    REGISTER_CVAR(tracers, 0);
     REGISTER_CVAR(clmove, 0);
 
     return true;
