@@ -94,6 +94,9 @@ void aimbot(usercmd_t* cmd) {
         engine_viewangles.x += best_delta.x;
         engine_viewangles.y += best_delta.y;
         engine_viewangles.z += best_delta.z;
+    } else if (CVAR_ON(autoshoot)) {
+        /* No valid target and we have autoshoot, don't shoot */
+        cmd->buttons &= ~IN_ATTACK;
     }
 
     vec_copy(cmd->viewangles, engine_viewangles);
