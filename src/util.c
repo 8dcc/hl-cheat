@@ -64,7 +64,8 @@ bool is_friend(cl_entity_t* ent) {
 }
 
 bool can_shoot(void) {
-    return g_flNextAttack <= 0.0f && g_flNextPrimaryAttack <= 0.0f;
+    return g_iClip > 0 && g_flNextAttack <= 0.0f &&
+           g_flNextPrimaryAttack <= 0.0f;
 }
 
 char* get_name(int ent_idx) {
