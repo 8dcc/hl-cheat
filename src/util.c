@@ -63,6 +63,10 @@ bool is_friend(cl_entity_t* ent) {
     }
 }
 
+bool can_shoot(void) {
+    return g_flNextAttack <= 0.0f && g_flNextPrimaryAttack <= 0.0f;
+}
+
 char* get_name(int ent_idx) {
     hud_player_info_t info;
     i_engine->pfnGetPlayerInfo(ent_idx, &info);
@@ -202,6 +206,19 @@ void engine_draw_text(int x, int y, char* s, rgb_t c) {
 
     i_engine->pfnDrawSetTextColor(r, g, b);
     i_engine->pfnDrawConsoleString(x, y, s);
+}
+
+void draw_tracer(vec3_t start, vec3_t end, rgb_t c, float a, float w,
+                 float time) {
+    static const char* MDL_STR = "sprites/laserbeam.spr";
+    static int beam_idx = i_engine->pEventAPI->EV_FindModelIndex(MDL_STR);
+
+    float r = c.r / 255.f;
+    float g = c.g / 255.f;
+    float b = c.b / 255.f;
+
+    i_engine->pEfxAPI->R_BeamPoints(start, end, beam_idx, time, w, 0, a, 0, 0,
+                                    0, r, g, b);
 }
 
 void gl_drawbox(int x, int y, int w, int h, rgb_t c) {
