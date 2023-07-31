@@ -63,6 +63,7 @@ void h_CL_CreateMove(float frametime, usercmd_t* cmd, int active) {
 
     bhop(cmd);
     aimbot(cmd);
+    bullet_tracers(cmd);
 
     correct_movement(cmd, old_angles);
     vec_clamp(cmd->viewangles);

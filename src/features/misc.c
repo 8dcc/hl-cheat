@@ -29,3 +29,29 @@ void custom_crosshair(void) {
     gl_drawline(mx - gap, my + gap, mx - gap - len, my + gap + len, w, col);
     gl_drawline(mx + gap, my + gap, mx + gap + len, my + gap + len, w, col);
 }
+
+void bullet_tracers(usercmd_t* cmd) {
+    /* Only draw if we are holding attack and we can shoot */
+    if (!CVAR_ON(tracers) || !(cmd->buttons & IN_ATTACK) || !can_shoot())
+        return;
+
+    /* Get player eye pos, start of tracer */
+    vec3_t view_height;
+    i_engine->pEventAPI->EV_LocalPlayerViewheight(view_height);
+    vec3_t local_eyes = vec_add(localplayer->origin, view_height);
+
+    /* Get forward vector from viewangles */
+    vec3_t fwd;
+    i_engine->pfnAngleVectors(cmd->viewangles, fwd, NULL, NULL);
+
+    const int tracer_len = 3000;
+    vec3_t end;
+    end.x = local_eyes.x + fwd.x * tracer_len;
+    end.y = local_eyes.y + fwd.y * tracer_len;
+    end.z = local_eyes.z + fwd.z * tracer_len;
+
+    /* NOTE: Change tracer settings here */
+    const float w    = 0.8;
+    const float time = 2;
+    draw_tracer(local_eyes, end, (rgb_t){ 66, 165, 245 }, 1, w, time);
+}
