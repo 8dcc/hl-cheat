@@ -22,6 +22,7 @@ Also make sure to check out [[https://github.com/deboogerxyz/ahc][deboogerxyz/ah
 | Bhop       | =cv_bhop=       | off/on                 |
 | Autostrafe | =cv_autostrafe= | off/rage/legit         |
 | Aimbot     | =cv_aimbot=     | off/fov*               |
+| Autoshoot  | =cv_autoshoot=  | off/on*                |
 | ESP        | =cv_esp=        | off/3d-box/name/all    |
 | Chams      | =cv_chams=      | off/players/hands/all* |
 | Crosshair  | =cv_crosshair=  | off/length             |
@@ -30,6 +31,11 @@ Also make sure to check out [[https://github.com/deboogerxyz/ahc][deboogerxyz/ah
 
 #+begin_quote
 *Note:* Aimbot FOV goes from 0 (off) to 180 (all enemies)
+#+end_quote
+
+#+begin_quote
+*Note:* If =cv_autoshoot= is enabled, and =cv_aimbot= is enabled, it will stop
+attacking if there is no visible target.
 #+end_quote
 
 #+begin_quote
