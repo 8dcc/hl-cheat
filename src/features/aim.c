@@ -79,7 +79,7 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
 }
 
 void aimbot(usercmd_t* cmd) {
-    if (!CVAR_ON(aimbot) || !(cmd->buttons & IN_ATTACK))
+    if (!CVAR_ON(aimbot) || !(cmd->buttons & IN_ATTACK) || !can_shoot())
         return;
 
     /* Calculate delta with the engine viewangles, not with the cmd ones */
