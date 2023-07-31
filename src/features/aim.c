@@ -7,7 +7,7 @@
 #include "../include/util.h"
 
 /* Game units to add to the entity origin to get the head */
-#define HEAD_OFFSET 65.f
+#define HEAD_OFFSET 25.f
 
 /* Scale factor for aim punch */
 #define AIM_PUNCH_MULT 2
@@ -52,7 +52,10 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
             continue;
 
         /* TODO: Get bones origin instead of calculating from ent origin */
-        const vec3_t head_pos = vec_add(ent->origin, vec3(0, 0, HEAD_OFFSET));
+        vec3_t head_pos = ent->origin;
+        if (ent->curstate.usehull != 1) /* Get head if not crouched */
+            head_pos.z += HEAD_OFFSET;
+
         if (!is_visible(local_eyes, head_pos)) /* We can't see player */
             continue;
 
