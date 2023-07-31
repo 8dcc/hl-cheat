@@ -10,7 +10,10 @@
 
 game_id this_game_id = HL;
 vec3_t g_punchAngles = { 0, 0, 0 };
+
+/* Weapon info */
 float g_flNextAttack = 0.f, g_flNextPrimaryAttack = 0.f;
+int g_iClip = 0;
 
 void* hw;
 void** h_client;

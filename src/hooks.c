@@ -111,6 +111,7 @@ void h_HUD_PostRunCmd(struct local_state_s* from, struct local_state_s* to,
         g_flNextAttack = to->client.m_flNextAttack;
         g_flNextPrimaryAttack =
           to->weapondata[to->client.m_iId].m_flNextPrimaryAttack;
+        g_iClip = to->weapondata[to->client.m_iId].m_iClip;
     }
 }
 
