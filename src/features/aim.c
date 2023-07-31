@@ -7,7 +7,7 @@
 #include "../include/util.h"
 
 /* Game units to add to the entity origin to get the head */
-#define HEAD_OFFSET 0.8f
+#define HEAD_OFFSET 65.f
 
 /* Scale factor for aim punch */
 #define AIM_PUNCH_MULT 2
@@ -61,11 +61,10 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
         vec_norm(delta);
 
         float fov = hypotf(delta.x, delta.y);
-        if (fov > 360.0f) {
+        if (fov > 360.0f)
             fov = remainderf(fov, 360.0f);
-            if (fov > 180.0f)
-                fov = 360.0f - fov;
-        }
+        if (fov > 180.0f)
+            fov = 360.0f - fov;
 
         if (fov < best_fov) {
             best_fov = fov;
