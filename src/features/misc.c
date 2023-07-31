@@ -32,7 +32,8 @@ void custom_crosshair(void) {
 
 void bullet_tracers(usercmd_t* cmd) {
     /* Only draw if we are holding attack and we can shoot */
-    if (!CVAR_ON(tracers) || !(cmd->buttons & IN_ATTACK) || !can_shoot())
+    if (!CVAR_ON(tracers) || !(cmd->buttons & IN_ATTACK) || !can_shoot() ||
+        !is_alive(localplayer))
         return;
 
     /* Get player eye pos, start of tracer */
