@@ -12,6 +12,7 @@ DECL_HOOK(CL_CreateMove);
 DECL_HOOK(HUD_Redraw);
 DECL_HOOK(StudioRenderModel);
 DECL_HOOK(CalcRefdef);
+DECL_HOOK(HUD_PostRunCmd);
 
 /* OpenGL hooks */
 DECL_HOOK(glColor4f);
@@ -29,6 +30,7 @@ bool hooks_init(void) {
     HOOK(i_client, HUD_Redraw);
     HOOK(i_studiomodelrenderer, StudioRenderModel);
     HOOK(i_client, CalcRefdef);
+    HOOK(i_client, HUD_PostRunCmd);
 
     /* OpenGL hooks */
     GL_HOOK(glColor4f);
@@ -87,11 +89,28 @@ void h_StudioRenderModel(void* this_ptr) {
         ORIGINAL(StudioRenderModel, this_ptr);
 }
 
+/*----------------------------------------------------------------------------*/
+
 void h_CalcRefdef(ref_params_t* params) {
     /* Store punch angles for CreateMove */
     vec_copy(g_punchAngles, params->punchangle);
 
     ORIGINAL(CalcRefdef, params);
+}
+
+/*----------------------------------------------------------------------------*/
+
+void h_HUD_PostRunCmd(struct local_state_s* from, struct local_state_s* to,
+                      struct usercmd_s* cmd, int runfuncs, double time,
+                      unsigned int random_seed) {
+    ORIGINAL(HUD_PostRunCmd, from, to, cmd, runfuncs, time, random_seed);
+
+    /* Store attack information to check if we can shoot */
+    if (runfuncs) {
+        g_flNextAttack = to->client.m_flNextAttack;
+        g_flNextPrimaryAttack =
+          to->weapondata[to->client.m_iId].m_flNextPrimaryAttack;
+    }
 }
 
 /*----------------------------------------------------------------------------*/
