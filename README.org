@@ -3,12 +3,18 @@
 #+startup: showeverything
 #+author: 8dcc
 
-*Linux cheat for Half-Life 1 (and goldsrc).*
+*Linux cheat for goldsrc games.*
 
 #+TOC: headlines 2
 
 * Description
-Simple linux cheat for Half-Life 1 (and most /goldsrc/ games) made in C.
+Simple linux cheat for most goldsrc games, made in C.
+
+Supported games:
+- [[https://store.steampowered.com/app/70/HalfLife/][Half-Life 1]]
+- [[https://store.steampowered.com/app/10/CounterStrike/][Counter-Strike 1.6]]
+- [[https://store.steampowered.com/app/20/Team_Fortress_Classic/][Team Fortress Classic]]
+- [[https://store.steampowered.com/app/30/Day_of_Defeat/][Day of Defeat]]
 
 This project was heavily inspired by [[https://github.com/UnkwUsr/hlhax][UnkwUsr/hlhax]], and would not have been
 possible without his help. Make sure to check out his repo too.
