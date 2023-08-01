@@ -45,7 +45,7 @@ void load(void) {
 }
 
 __attribute__((destructor)) /* Entry point when unloaded */
-void unload() {
+void unload(void) {
     if (loaded) {
         /* TODO: Remove our cvars */
 
