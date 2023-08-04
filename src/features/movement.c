@@ -31,7 +31,7 @@ static void autostrafe_rage(usercmd_t* cmd) {
     /* TODO: Get at runtime */
     const float sv_airaccelerate = 10.0f;
     const float sv_maxspeed      = 320.0f;
-    const float cl_forwardspeed  = 400.0f;
+    const float cl_forwardspeed  = 425.0f;
     const float cl_sidespeed     = 400.0f;
 
     float speed = vec_len2d(i_pmove->velocity);
