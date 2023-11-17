@@ -14,6 +14,13 @@ typedef struct {
     uint8_t r, g, b;
 } rgb_t;
 
+#define ERR(...)                                     \
+    do {                                             \
+        fprintf(stderr, "hl-cheat: %s: ", __func__); \
+        fprintf(stderr, __VA_ARGS__);                \
+        fputc('\n', stderr);                         \
+    } while (0);
+
 #define DEG2RAD(n) ((n)*M_PI / 180.0f)
 #define RAD2DEG(n) ((n)*180.0f / M_PI)
 #define CLAMP(val, min, max) \

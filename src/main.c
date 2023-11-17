@@ -13,25 +13,25 @@ static bool loaded = false;
 
 __attribute__((constructor)) /* Entry point when injected */
 void load(void) {
-    printf("hl-cheat injected!\n");
+    printf("hl-cheat: Injected.\n");
 
     /* Initialize globals/interfaces */
     if (!globals_init()) {
-        fprintf(stderr, "hl-cheat: load: error loading globals, aborting\n");
+        ERR("Error loading globals, aborting");
         self_unload();
         return;
     }
 
     /* Create cvars for settings */
     if (!cvars_init()) {
-        fprintf(stderr, "hl-cheat: load: error creating cvars, aborting\n");
+        ERR("Error creating cvars, aborting");
         self_unload();
         return;
     }
 
     /* Hook functions */
     if (!hooks_init()) {
-        fprintf(stderr, "hl-cheat: load: error hooking functions, aborting\n");
+        ERR("Error hooking functions, aborting");
         self_unload();
         return;
     }
@@ -55,7 +55,7 @@ void unload(void) {
         GL_UNHOOK(glColor4f); /* Manually restore OpenGL hooks here */
     }
 
-    printf("hl-cheat unloaded.\n\n");
+    printf("hl-cheat: Unloaded.\n\n");
 }
 
 void self_unload(void) {
