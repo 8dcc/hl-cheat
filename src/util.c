@@ -3,6 +3,7 @@
 #include <math.h>
 #include <GL/gl.h>
 #include <dlfcn.h>    /* dlsym */
+#include <link.h>     /* link_map */
 #include <unistd.h>   /* getpagesize */
 #include <sys/mman.h> /* mprotect */
 
@@ -263,6 +264,63 @@ void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
 }
 
 /*----------------------------------------------------------------------------*/
+
+void* find_sig(const char* module, const byte* pattern) {
+    struct our_link_map {
+        /* Base from link.h */
+        ElfW(Addr) l_addr;
+        const char* l_name;
+        ElfW(Dyn) * l_ld;
+        struct our_link_map* l_next;
+        struct our_link_map* l_prev;
+
+        /* Added */
+        struct our_link_map* real;
+        long int ns;
+        struct libname_list* moduleName;
+        ElfW(Dyn) * info[DT_NUM + DT_VERSIONTAGNUM + DT_EXTRANUM + DT_VALNUM +
+                         DT_ADDRNUM];
+        const ElfW(Phdr) * phdr;
+    };
+
+    /* TODO: Remove unnecesary cast after porting C++ SDK to C. */
+    struct our_link_map* link =
+      (struct our_link_map*)dlopen(module, RTLD_NOLOAD | RTLD_NOW);
+
+    if (!link) {
+        ERR("Can't open module \"%s\"", module);
+        return NULL;
+    }
+
+    byte* start = (byte*)link->l_addr;
+    byte* end   = start + link->phdr[0].p_memsz;
+
+    dlclose(link);
+
+    const byte* memPos = start;
+    const byte* patPos = pattern;
+
+    /* Iterate memory area until *patPos is '\0' (we found pattern).
+     * If we start a pattern match, keep checking all pattern positions until we
+     * are done or until mismatch. If we find mismatch, reset pattern position
+     * and continue checking at the memory location where we started +1 */
+    while (memPos < end && *patPos != '\0') {
+        if (*memPos == *patPos || *patPos == '?') {
+            memPos++;
+            patPos++;
+        } else {
+            start++;
+            memPos = start;
+            patPos = pattern;
+        }
+    }
+
+    /* We reached end of pattern, we found it */
+    if (*patPos == '\0')
+        return start;
+
+    return NULL;
+}
 
 #define PAGE_MASK          (~(PAGE_SZ - 1))
 #define PAGE_ALIGN(x)      ((x + PAGE_SZ - 1) & PAGE_MASK)

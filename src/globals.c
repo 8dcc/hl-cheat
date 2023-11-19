@@ -8,6 +8,15 @@
 #include "include/sdk.h"
 #include "include/util.h"
 
+#define GET_PATTERN(VAR, MODULE, SIG)           \
+    void* VAR = find_sig(MODULE, SIG);          \
+    if (!VAR) {                                 \
+        ERR("Coundn't find pattern for " #SIG); \
+        return false;                           \
+    }
+
+/*----------------------------------------------------------------------------*/
+
 game_id this_game_id = HL;
 vec3_t g_punchAngles = { 0, 0, 0 };
 
@@ -15,8 +24,6 @@ vec3_t g_punchAngles = { 0, 0, 0 };
 float g_flNextAttack = 0.f, g_flNextPrimaryAttack = 0.f;
 int g_iClip = 0;
 
-void* hw;
-void** h_client;
 DECL_INTF(cl_enginefunc_t, engine);
 DECL_INTF(cl_clientfunc_t, client);
 DECL_INTF(playermove_t, pmove);
@@ -40,13 +47,13 @@ bool globals_init(void) {
      *  RTLD_LAZY: If the symbol is never referenced, then it is never resolved.
      *  RTLD_NOLOAD: Don't load the shared object.
      */
-    hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
+    void* hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
     if (!hw) {
         ERR("Can't open hw.so");
         return false;
     }
 
-    h_client = (void**)dlsym(hw, "hClientDLL");
+    void* h_client = *(void**)dlsym(hw, "hClientDLL");
     if (!h_client) {
         ERR("Can't find hClientDLL");
         return false;
@@ -59,9 +66,9 @@ bool globals_init(void) {
     i_enginestudio = (engine_studio_api_t*)dlsym(hw, "engine_studio_api");
 
     const char* SMR_STR   = "g_StudioRenderer"; /* For clang-format */
-    i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(*h_client, SMR_STR);
+    i_studiomodelrenderer = *(StudioModelRenderer_t**)dlsym(h_client, SMR_STR);
 
-    player_extra_info = dlsym(*h_client, "g_PlayerExtraInfo");
+    player_extra_info = dlsym(h_client, "g_PlayerExtraInfo");
 
     game_info = *(game_t**)dlsym(hw, "game");
 
