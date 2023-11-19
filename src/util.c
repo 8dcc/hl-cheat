@@ -95,6 +95,8 @@ game_id get_cur_game(void) {
         return HL;
 }
 
+/*----------------------------------------------------------------------------*/
+
 vec3_t vec3(float x, float y, float z) {
     vec3_t ret;
 
@@ -176,6 +178,8 @@ vec3_t matrix_3x4_origin(matrix_3x4 m) {
     return ret;
 }
 
+/*----------------------------------------------------------------------------*/
+
 bool world_to_screen(vec3_t vec, vec2_t screen) {
     if (vec_is_zero(vec))
         return false;
@@ -198,6 +202,8 @@ bool world_to_screen(vec3_t vec, vec2_t screen) {
 
     return false;
 }
+
+/*----------------------------------------------------------------------------*/
 
 void engine_draw_text(int x, int y, char* s, rgb_t c) {
     /* Convert to 0..1 range */
@@ -234,10 +240,10 @@ void gl_drawbox(int x, int y, int w, int h, rgb_t c) {
      *   +----+
      *     4
      */
-    gl_drawline(x, y, x + w, y, lw, c);         /* 1 */
-    gl_drawline(x, y, x, y + h, lw, c);         /* 2 */
-    gl_drawline(x + w, y, x + w, y + h, lw, c); /* 3 */
-    gl_drawline(x, y + h, x + w, y + h, lw, c); /* 4 */
+    gl_drawline(x, y, x + w, y, lw, c);
+    gl_drawline(x, y, x, y + h, lw, c);
+    gl_drawline(x + w, y, x + w, y + h, lw, c);
+    gl_drawline(x, y + h, x + w, y + h, lw, c);
 }
 
 void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
@@ -256,21 +262,17 @@ void gl_drawline(int x0, int y0, int x1, int y1, float w, rgb_t col) {
     glDisable(GL_BLEND);
 }
 
-/*
- * Credits:
- *   https://github.com/UnkwUsr/hlhax/blob/26491984996c8389efec977ed940c5a67a0ecca4/src/utils/mem/mem.cpp
- *   Linux kernel, tools/virtio/linux/kernel.h
- */
-#define PAGE_SIZE          getpagesize()
-#define PAGE_MASK          (~(PAGE_SIZE - 1))
-#define PAGE_ALIGN(x)      ((x + PAGE_SIZE - 1) & PAGE_MASK)
-#define PAGE_ALIGN_DOWN(x) (PAGE_ALIGN(x) - PAGE_SIZE)
+/*----------------------------------------------------------------------------*/
+
+#define PAGE_MASK          (~(PAGE_SZ - 1))
+#define PAGE_ALIGN(x)      ((x + PAGE_SZ - 1) & PAGE_MASK)
+#define PAGE_ALIGN_DOWN(x) (PAGE_ALIGN(x) - PAGE_SZ)
 
 bool protect_addr(void* ptr, int new_flags) {
-    void* p  = (void*)PAGE_ALIGN_DOWN((int)ptr);
-    int pgsz = getpagesize();
+    int PAGE_SZ = getpagesize();
+    void* p     = (void*)PAGE_ALIGN_DOWN((uint32_t)ptr);
 
-    if (mprotect(p, pgsz, new_flags) == -1) {
+    if (mprotect(p, PAGE_SZ, new_flags) == -1) {
         ERR("Error protecting %p", ptr);
         return false;
     }
