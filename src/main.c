@@ -53,6 +53,9 @@ void unload(void) {
         hooks_restore();
 
         GL_UNHOOK(glColor4f); /* Manually restore OpenGL hooks here */
+
+        /* Close hw.so handler */
+        dlclose(hw);
     }
 
     printf("hl-cheat: Unloaded.\n\n");

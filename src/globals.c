@@ -17,6 +17,9 @@
 
 /*----------------------------------------------------------------------------*/
 
+/* Handlers used globally */
+void* hw = NULL;
+
 game_id this_game_id = HL;
 vec3_t g_punchAngles = { 0, 0, 0 };
 
@@ -47,7 +50,7 @@ bool globals_init(void) {
      *  RTLD_LAZY: If the symbol is never referenced, then it is never resolved.
      *  RTLD_NOLOAD: Don't load the shared object.
      */
-    void* hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
+    hw = dlopen("hw.so", RTLD_LAZY | RTLD_NOLOAD);
     if (!hw) {
         ERR("Can't open hw.so");
         return false;

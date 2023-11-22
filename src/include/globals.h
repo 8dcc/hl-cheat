@@ -33,13 +33,13 @@ enum game_id {
 
 /*----------------------------------------------------------------------------*/
 
+extern void* hw;
+
 extern game_id this_game_id;
 extern vec3_t g_punchAngles;
 extern float g_flNextAttack, g_flNextPrimaryAttack;
 extern int g_iClip;
 
-extern void* hw;
-extern void** h_client; /* hClientDLL hander */
 DECL_INTF_EXTERN(cl_enginefunc_t, engine);
 DECL_INTF_EXTERN(cl_clientfunc_t, client);
 DECL_INTF_EXTERN(playermove_t, pmove);

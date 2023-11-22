@@ -5,6 +5,7 @@
 /*----------------------------------------------------------------------------*/
 
 #include "sdk.h"
+#include "globals.h"
 
 #include <dlfcn.h> /* dlsym */
 #include <GL/gl.h> /* GLFloat */
@@ -64,27 +65,27 @@
  *     void** hp_glColor4f = (void**)dlsym(hw, "qglColor4f"); // Ptr
  *     *hp_glColor4f = (void*)ho_glColor4f;                   // Set to original
  */
-#define DECL_HOOK_EXTERN(type, name, ...)  \
-    typedef type (*name##_t)(__VA_ARGS__); \
-    extern name##_t ho_##name;             \
-    type h_##name(__VA_ARGS__);
+#define DECL_HOOK_EXTERN(TYPE, NAME, ...)  \
+    typedef TYPE (*NAME##_t)(__VA_ARGS__); \
+    extern NAME##_t ho_##NAME;             \
+    TYPE h_##NAME(__VA_ARGS__);
 
-#define DECL_HOOK(name) name##_t ho_##name = NULL;
+#define DECL_HOOK(NAME) NAME##_t ho_##NAME = NULL;
 
-#define HOOK(interface, name)          \
-    ho_##name       = interface->name; \
-    interface->name = h_##name;
+#define HOOK(INTERFACE, NAME)          \
+    ho_##NAME       = INTERFACE->NAME; \
+    INTERFACE->NAME = h_##NAME;
 
-#define ORIGINAL(name, ...) ho_##name(__VA_ARGS__);
+#define ORIGINAL(NAME, ...) ho_##NAME(__VA_ARGS__);
 
-#define GL_HOOK(name)                                \
-    void** hp_##name = (void**)dlsym(hw, "q" #name); \
-    ho_##name        = (name##_t)(*hp_##name);       \
-    *hp_##name       = (void*)h_##name;
+#define GL_HOOK(NAME)                                \
+    void** hp_##NAME = (void**)dlsym(hw, "q" #NAME); \
+    ho_##NAME        = (NAME##_t)(*hp_##NAME);       \
+    *hp_##NAME       = (void*)h_##NAME;
 
-#define GL_UNHOOK(name)                              \
-    void** hp_##name = (void**)dlsym(hw, "q" #name); \
-    *hp_##name       = (void*)ho_##name;
+#define GL_UNHOOK(NAME)                              \
+    void** hp_##NAME = (void**)dlsym(hw, "q" #NAME); \
+    *hp_##NAME       = (void*)ho_##NAME;
 
 /*----------------------------------------------------------------------------*/
 
