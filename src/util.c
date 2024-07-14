@@ -136,16 +136,16 @@ float vec_len2d(vec3_t v) {
     return sqrtf(v.x * v.x + v.y * v.y);
 }
 
-void vec_clamp(vec3_t v) {
-    v.x = CLAMP(v.x, -89.0f, 89.0f);
-    v.y = CLAMP(remainderf(v.y, 360.0f), -180.0f, 180.0f); /* v.y % 360 */
-    v.z = CLAMP(v.z, -50.0f, 50.0f);
+void ang_clamp(vec3_t* v) {
+    v->x = CLAMP(v->x, -89.0f, 89.0f);
+    v->y = CLAMP(remainderf(v->y, 360.0f), -180.0f, 180.0f);
+    v->z = CLAMP(v->z, -50.0f, 50.0f);
 }
 
-void vec_norm(vec3_t v) {
-    v.x = isfinite(v.x) ? remainder(v.x, 360) : 0;
-    v.y = isfinite(v.y) ? remainder(v.y, 360) : 0;
-    v.z = 0.0f;
+void vec_norm(vec3_t* v) {
+    v->x = isfinite(v->x) ? remainderf(v->x, 360.f) : 0.f;
+    v->y = isfinite(v->y) ? remainderf(v->y, 360.f) : 0.f;
+    v->z = 0.0f;
 }
 
 float angle_delta_rad(float a, float b) {

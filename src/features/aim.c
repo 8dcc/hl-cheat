@@ -60,15 +60,12 @@ static vec3_t get_closest_delta(vec3_t viewangles) {
             continue;
 
         const vec3_t enemy_angle = vec_to_ang(vec_sub(head_pos, local_eyes));
-        const vec3_t delta       = vec_sub(enemy_angle, viewangles);
-        vec_norm(delta);
+
+        vec3_t delta = vec_sub(enemy_angle, viewangles);
+        vec_norm(&delta);
+        ang_clamp(&delta);
 
         float fov = hypotf(delta.x, delta.y);
-        if (fov > 360.0f)
-            fov = remainderf(fov, 360.0f);
-        if (fov > 180.0f)
-            fov = 360.0f - fov;
-
         if (fov < best_fov) {
             best_fov = fov;
             vec_copy(best_delta, delta);

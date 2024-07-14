@@ -19,7 +19,7 @@ typedef struct {
         fprintf(stderr, "hl-cheat: %s: ", __func__); \
         fprintf(stderr, __VA_ARGS__);                \
         fputc('\n', stderr);                         \
-    } while (0);
+    } while (0)
 
 #define DEG2RAD(n) ((n)*M_PI / 180.0f)
 #define RAD2DEG(n) ((n)*180.0f / M_PI)
@@ -31,9 +31,11 @@ typedef struct {
 
 /* Use indexes so it works for float[] as well as vec3_t */
 #define vec_copy(dst, src) \
-    dst[0] = src[0];       \
-    dst[1] = src[1];       \
-    dst[2] = src[2];
+    do {                   \
+        dst[0] = src[0];   \
+        dst[1] = src[1];   \
+        dst[2] = src[2];   \
+    } while (0)
 
 /*----------------------------------------------------------------------------*/
 
@@ -49,8 +51,8 @@ vec3_t vec_add(vec3_t a, vec3_t b);
 vec3_t vec_sub(vec3_t a, vec3_t b);
 bool vec_is_zero(vec3_t v);
 float vec_len2d(vec3_t v);
-void vec_clamp(vec3_t v);
-void vec_norm(vec3_t v);
+void ang_clamp(vec3_t* v);
+void vec_norm(vec3_t* v);
 float angle_delta_rad(float a, float b);
 vec3_t vec_to_ang(vec3_t v);
 vec3_t matrix_3x4_origin(matrix_3x4 m);
