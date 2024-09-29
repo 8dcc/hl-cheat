@@ -70,7 +70,7 @@ void bhop(usercmd_t* cmd) {
 
     static bool was_in_air = false;
 
-    /* Used bellow to check if we should autostrafe before. Store since we might
+    /* Used below to check if we should autostrafe before. Store since we might
      * change cmd->buttons (autostrafe only when user hold space) */
     bool is_jumping = cmd->buttons & IN_JUMP;
 

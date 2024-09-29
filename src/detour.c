@@ -60,7 +60,7 @@ void detour_init(detour_data_t* data, void* orig, void* hook) {
     /* Default jmp bytes */
     memcpy(data->jmp_bytes, &def_jmp_bytes, sizeof(def_jmp_bytes));
 
-    /* JMP_BYTES_PTR is defined bellow def_jmp_bytes, and it changes depending
+    /* JMP_BYTES_PTR is defined below def_jmp_bytes, and it changes depending
      * on the arch.
      * We use "&hook" and not "hook" because we want the address of
      * the func, not the first bytes of it like before. */
