@@ -7,7 +7,8 @@ CFLAGS=-Wall -Wextra -Wno-write-strings -m32 -fPIC $(INCLUDES)
 LDFLAGS=-shared
 LDLIBS=-lm
 
-SRC=main.c globals.c cvars.c hooks.c detour.c util.c features/movement.c features/esp.c features/chams.c features/aim.c features/misc.c
+SRC=main.c util.c mathutil.c entityutil.c globals.c hooks.c cvars.c detour.c \
+	features/movement.c features/esp.c features/chams.c features/aim.c features/misc.c
 OBJ=$(addprefix obj/, $(addsuffix .o, $(SRC)))
 
 BIN=libhlcheat.so

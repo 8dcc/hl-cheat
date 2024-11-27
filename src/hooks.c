@@ -3,6 +3,7 @@
 #include "include/sdk.h"
 #include "include/globals.h"
 #include "include/util.h"
+#include "include/mathutil.h"
 #include "include/cvars.h"
 #include "include/detour.h"    /* 8dcc/detour-lib */
 #include "features/features.h" /* bhop(), esp(), etc. */

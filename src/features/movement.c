@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "features.h"
 #include "../include/sdk.h"
+#include "../include/util.h"
+#include "../include/mathutil.h"
 #include "../include/globals.h"
 #include "../include/cvars.h"
-#include "../include/util.h"
+#include "features.h"
 
 static void autostrafe_legit(usercmd_t* cmd) {
     /* Get mouse delta */

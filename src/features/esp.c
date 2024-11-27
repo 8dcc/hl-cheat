@@ -1,9 +1,12 @@
 
 #include <stdint.h>
-#include "features.h"
+
+#include "../include/util.h"
+#include "../include/mathutil.h"
+#include "../include/entityutil.h"
 #include "../include/globals.h"
 #include "../include/cvars.h"
-#include "../include/util.h"
+#include "features.h"
 
 /* For cv_esp */
 enum esp_values {

@@ -52,7 +52,8 @@ void unload(void) {
         globals_restore();
         hooks_restore();
 
-        GL_UNHOOK(glColor4f); /* Manually restore OpenGL hooks here */
+        /* Manually restore OpenGL hooks here */
+        GL_UNHOOK(glColor4f);
 
         /* Close hw.so handler */
         dlclose(hw);
@@ -68,9 +69,9 @@ void self_unload(void) {
      */
     void* self = dlopen("libhlcheat.so", RTLD_LAZY | RTLD_NOLOAD);
 
-    /* Close the call we just made to dlopen() */
+    /* Close the call we just made to `dlopen' */
     dlclose(self);
 
-    /* Close the call our injector made */
+    /* Close the call that our injector made */
     dlclose(self);
 }

@@ -1,10 +1,12 @@
 
 #include <math.h>
 
-#include "features.h"
 #include "../include/sdk.h"
-#include "../include/cvars.h"
 #include "../include/util.h"
+#include "../include/entityutil.h"
+#include "../include/mathutil.h"
+#include "../include/cvars.h"
+#include "features.h"
 
 /* Game units to add to the entity origin to get the head */
 #define HEAD_OFFSET 25.f

@@ -1,10 +1,11 @@
 
-#include "features.h"
+#include <GL/gl.h>
+
+#include "../include/util.h"
+#include "../include/entityutil.h"
 #include "../include/globals.h"
 #include "../include/cvars.h"
-#include "../include/util.h"
-
-#include <GL/gl.h>
+#include "features.h"
 
 enum chams_settings {
     DISABLED     = 0,
